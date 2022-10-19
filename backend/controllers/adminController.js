@@ -73,6 +73,19 @@ const loginAdmin = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc    Get current admin
+// @route   /admin/me
+// @access  Private
+const getAdmin = asyncHandler(async (req, res) => {
+    const admin = {
+        id: req.admin._id,
+        email: req.admin.email,
+        firstName: req.admin.firstName,
+        lastName: req.admin.lastName
+    }
+    res.status(200).json(admin)
+})
+
 // Generate Token
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -82,5 +95,6 @@ const generateToken = (id) => {
 
 module.exports = {
     registerAdmin,
-    loginAdmin
+    loginAdmin,
+    getAdmin
 }

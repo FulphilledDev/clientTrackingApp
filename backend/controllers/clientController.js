@@ -81,6 +81,19 @@ const loginClient = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc    Get current client
+// @route   /client/me
+// @access  Private
+const getClient = asyncHandler(async (req, res) => {
+    const client = {
+        id: req.client._id,
+        email: req.client.email,
+        firstName: req.client.firstName,
+        lastName: req.client.lastName
+    }
+    res.status(200).json(client)
+})
+
 // Generate Token
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -90,5 +103,6 @@ const generateToken = (id) => {
 
 module.exports = {
     registerClient,
-    loginClient
+    loginClient,
+    getClient
 }

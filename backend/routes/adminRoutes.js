@@ -1,9 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const { registerAdmin, loginAdmin } = require('../controllers/adminController')
+const { 
+    registerAdmin, 
+    loginAdmin, 
+    getAdmin } = require('../controllers/adminController')
+
+const { protect } = require('../middleware/adminMiddleware')
 
 router.post('/register', registerAdmin)
 
 router.post('/login', loginAdmin)
+router.get('/me', protect, getAdmin)
 
 module.exports = router
