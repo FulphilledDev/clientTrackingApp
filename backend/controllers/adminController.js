@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const Admin = require('../models/adminModel')
 
@@ -40,7 +41,8 @@ const registerAdmin = asyncHandler(async (req, res) => {
             _id: admin._id,
             firstName: admin.firstName,
             lastName: admin.lastName,
-            email: admin.email
+            email: admin.email,
+            token: generateToken(admin._id)
         })
     } else {
         res.status(400)
@@ -52,8 +54,31 @@ const registerAdmin = asyncHandler(async (req, res) => {
 // @route   /admin/login
 // @access  Public
 const loginAdmin = asyncHandler(async (req, res) => {
-    res.send('Login Admin Route')
+    const { email, password } = req.body
+
+    const admin = await Admin.findOne({email})
+
+    // Check admin and passwords match
+    if(admin && (await bcrypt.compare(password, admin.password))) {
+        res.status(200).json({
+            _id: admin._id,
+            firstName: admin.firstName,
+            lastName: admin.lastName,
+            email: admin.email,
+            token: generateToken(admin._id)
+        })
+    } else {
+        res.status(401)
+        throw new Error('Invalid credentials')
+    }
 })
+
+// Generate Token
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d',
+    })
+}
 
 module.exports = {
     registerAdmin,

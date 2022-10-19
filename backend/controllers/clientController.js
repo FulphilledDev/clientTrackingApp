@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const Client = require('../models/clientModel')
 
@@ -49,6 +50,7 @@ const registerClient = asyncHandler(async (req, res) => {
             height: client.height,
             weight: client.weight,
             bmr: client.bmr,
+            token: generateToken(client._id)
         })
     } else {
         res.status(400)
@@ -60,8 +62,31 @@ const registerClient = asyncHandler(async (req, res) => {
 // @route   /client/login
 // @access  Public
 const loginClient = asyncHandler(async (req, res) => {
-    res.send('Login Client Route')
+    const { email, password } = req.body
+
+    const client = await Client.findOne({email})
+
+    // Check client and passwords match
+    if(client && (await bcrypt.compare(password, client.password))) {
+        res.status(200).json({
+            _id: client._id,
+            firstName: client.firstName,
+            lastName: client.lastName,
+            email: client.email,
+            token: generateToken(client._id)
+        })
+    } else {
+        res.status(401)
+        throw new Error('Invalid credentials')
+    }
 })
+
+// Generate Token
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d',
+    })
+}
 
 module.exports = {
     registerClient,
