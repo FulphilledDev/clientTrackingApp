@@ -4,6 +4,7 @@ import { FaUser } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { useSelector, useDispatch } from 'react-redux'
 import { registerAdmin, reset } from '../features/auth/adminAuthSlice'
+import Spinner from './Spinner'
 
 
 function AdminRegister() {
@@ -61,6 +62,10 @@ function AdminRegister() {
 
       dispatch(registerAdmin(adminData))
     }
+  }
+
+  if(isLoading) {
+    return <Spinner />
   }
 
   return (

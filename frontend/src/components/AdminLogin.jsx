@@ -4,6 +4,7 @@ import { FaSignInAlt } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { useSelector, useDispatch } from 'react-redux'
 import { loginAdmin, reset } from '../features/auth/adminAuthSlice'
+import Spinner from './Spinner'
 
 function AdminLogin() {
   const [adminFormData, setAdminFormData] = useState({
@@ -48,6 +49,10 @@ function AdminLogin() {
     }
 
     { adminData && dispatch(loginAdmin(adminData))}
+  }
+
+  if(isLoading) {
+    return <Spinner />
   }
 
   
