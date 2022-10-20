@@ -5,11 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { registerAdmin, registerClient } from '../features/auth/authSlice'
 
 
-function Register() {
-  const [clientFormData, setClientFormData] = useState({
-
-  })
-
+function AdminRegister() {
   const [adminFormData, setAdminFormData] = useState({
     firstName: '',
     lastName: '',
@@ -50,13 +46,6 @@ function Register() {
 
   return (
     <>
-      <section className="heading">
-        <h1>
-          <FaUser />Register
-        </h1>
-        <p>Please create an account</p>
-      </section>
-
       <section className="form">
         <form onSubmit={onSubmit}>
           <div className="form-group">
@@ -130,4 +119,4 @@ function Register() {
   )
 }
 
-export default Register
+export default AdminRegister

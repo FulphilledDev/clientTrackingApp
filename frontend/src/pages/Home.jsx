@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { FaPenAlt, FaHandPaper } from 'react-icons/fa'
+import AdminRegister from '../components/AdminRegister';
 import AdminLogin from '../components/AdminLogin';
 import ClientLogin from '../components/ClientLogin';
 
@@ -8,6 +9,7 @@ import ClientLogin from '../components/ClientLogin';
 function Home() {
   const [ showAdminBtns, setShowAdminBtns ] = useState(false)
   const [ showAdminLoginForm, setShowAdminLoginForm ] = useState(false)
+  const [ showAdminRegisterForm, setShowAdminRegisterForm ] = useState(false)
   const [ showClientBtns, setShowClientBtns ] = useState(false)
   const [ showClientLoginForm, setShowClientLoginForm ] = useState(false)
 
@@ -30,7 +32,13 @@ function Home() {
   }
 
   // Admin Register Toggle
-
+  const toggleAdminRegisterForm = () => {
+    if (showAdminRegisterForm === false) {
+      setShowAdminRegisterForm(true)
+    } else {
+      setShowAdminRegisterForm(false)
+    }
+  }
 
   // Client Buttons Toggle
   const toggleClientBtns = ()=> {
@@ -49,12 +57,15 @@ function Home() {
       setShowClientLoginForm(false)
     }
   }
+
+  // Client Register Toggle
   
 
   return (
     <>
       <section className="heading">
-        <h1>Hello! Are you a client or coach?</h1>
+        <h1>Hello and Welcome!</h1>
+        <h4>Are you a client or coach?</h4>
         <p>Please choose one below</p>
       </section>
 
@@ -70,11 +81,12 @@ function Home() {
           <button onClick={toggleAdminLoginForm}>
             Login
           </button>
-          <button>
+          <button onClick={toggleAdminRegisterForm}>
             Register
           </button>
 
           { showAdminLoginForm ? <AdminLogin /> : null}
+          { showAdminRegisterForm ? <AdminRegister /> : null}
         </>) 
         : null
       }

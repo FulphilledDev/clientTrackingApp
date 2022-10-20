@@ -9,9 +9,7 @@ function Header() {
         </div>
         <ul>
             <li>
-                <Link to='/register'>
-                    <FaUser /> Register
-                </Link>
+                
             </li>
         </ul>
     </header>
