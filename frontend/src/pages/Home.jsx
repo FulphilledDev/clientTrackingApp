@@ -69,19 +69,15 @@ function Home() {
         <p>Please choose one below</p>
       </section>
 
-      <button onClick={toggleAdminBtns} className='btn'>
+      <button onClick={toggleAdminBtns} className='btn btn-block'>
         <FaPenAlt />Admin
       </button>
-      <button onClick={toggleClientBtns} className='btn'>
-        <FaHandPaper />Client
-      </button>
-
       { showAdminBtns 
         ? (<>
-          <button onClick={toggleAdminLoginForm}>
+          <button onClick={toggleAdminLoginForm} className='btn btn-reverse'>
             Login
           </button>
-          <button onClick={toggleAdminRegisterForm}>
+          <button onClick={toggleAdminRegisterForm} className='btn btn-reverse'>
             Register
           </button>
 
@@ -91,12 +87,15 @@ function Home() {
         : null
       }
 
+      <button onClick={toggleClientBtns} className='btn btn-block btn-reverse'>
+        <FaHandPaper />Client
+      </button>
       { showClientBtns 
         ? (<>
-          <button onClick={toggleClientLoginForm}>
+          <button onClick={toggleClientLoginForm} className='btn'>
             Login
           </button>
-          <button>
+          <button className='btn'>
             Register
           </button>
 
