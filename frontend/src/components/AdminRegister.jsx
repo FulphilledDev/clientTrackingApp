@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { useSelector, useDispatch } from 'react-redux'
-import { registerAdmin, registerClient, reset } from '../features/auth/authSlice'
+import { registerAdmin, reset } from '../features/auth/adminAuthSlice'
 
 
 function AdminRegister() {
@@ -20,7 +20,7 @@ function AdminRegister() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const {admin, client, isLoading, isError, isSuccess, message} = useSelector(state => state.auth)
+  const {admin, isLoading, isError, isSuccess, message} = useSelector(state => state.auth)
 
 
   // Admin useEffect

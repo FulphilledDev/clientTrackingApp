@@ -1,9 +1,11 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import authService from './authService'
+import adminAuthService from './adminAuthService'
+
+// Get admin from local storage
+const admin = JSON.parse(localStorage.getItem('admin'))
 
 const initialState = {
-    admin: null,
-    client: null,
+    admin: admin ? admin : null,
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -15,8 +17,9 @@ const initialState = {
 ///////////////
 // Register
 export const registerAdmin = createAsyncThunk('auth/registerAdmin', async (admin, thunkAPI) => {
+    console.log(admin)
         try {
-            return await authService.register(admin)
+            return await adminAuthService.registerAdmin(admin)
         } catch (error) {
             const message = 
                 (error.response 
@@ -35,23 +38,9 @@ export const loginAdmin = createAsyncThunk('auth/loginAdmin', async (admin, thun
         console.log(admin)
 })
 
-////////////////
-// Client
-////////////////
-// Register
-export const registerClient = createAsyncThunk('auth/registerClient', async (client, thunkAPI) => {
-        console.log(client)
-})
 
-// Login
-export const loginClient = createAsyncThunk('auth/loginClient', async (client, thunkAPI) => {
-        console.log(client)
-})
-
-
-
-export const authSlice = createSlice ({
-    name: 'auth',
+export const adminAuthSlice = createSlice ({
+    name: 'admin',
     initialState,
     reducers: {
         reset: (state) => {
@@ -80,6 +69,6 @@ export const authSlice = createSlice ({
     }
 })
 
-export const { reset } = authSlice.actions
+export const { reset } = adminAuthSlice.actions
 
-export default authSlice.reducer
+export default adminAuthSlice.reducer
