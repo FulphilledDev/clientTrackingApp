@@ -4,15 +4,7 @@ const ADMIN_URL = '/admin'
 
 // Register Admin
 const registerAdmin = async (adminData) => {
-    let b
-    const response = await axios.post(ADMIN_URL, 
-        {
-            a:b
-        },
-        {headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }}, 
-        adminData)
+    const response = await axios.post(ADMIN_URL, adminData)
 
     if(response.data) {
         localStorage.setItem('admin', JSON.stringify(response.data))
@@ -20,8 +12,12 @@ const registerAdmin = async (adminData) => {
     return response.data
 }
 
+// Logout Admin
+const logoutAdmin = () => localStorage.removeItem('admin')
+
 const adminAuthService = {
-    registerAdmin
+    registerAdmin,
+    logoutAdmin
 }
 
 export default adminAuthService

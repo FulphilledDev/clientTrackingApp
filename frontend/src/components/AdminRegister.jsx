@@ -12,10 +12,11 @@ function AdminRegister() {
     lastName: '',
     email: '',
     password: '',
-    password2: ''
+    password2: '',
+    isAdmin: true
   })
 
-  const { firstName, lastName, email, password, password2 } = adminFormData
+  const { firstName, lastName, email, password, password2, isAdmin } = adminFormData
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -54,7 +55,8 @@ function AdminRegister() {
         firstName, 
         lastName,
         email,
-        password
+        password,
+        isAdmin
       }
 
       dispatch(registerAdmin(adminData))
