@@ -16,17 +16,17 @@ const customStyles = {
   },
 };
 
-// looks in index.html to mount
-Modal.setAppElement('#root')
+// // looks in index.html to mount
+// Modal.setAppElement('#root')
 
 function Home() {
-  // set local state for modal
-  const [modalIsOpen, setIsOpen] = useState(false);
+  // // set local state for modal
+  // const [modalIsOpen, setIsOpen] = useState(false);
 
 
-  // open/close modal
-  const openModal = () => setIsOpen(true)
-  const closeModal = () => setIsOpen(false)
+  // // open/close modal
+  // const openModal = () => setIsOpen(true)
+  // const closeModal = () => setIsOpen(false)
   
 
   return (
@@ -44,7 +44,7 @@ function Home() {
       </Link>
 
       {/* Nothing below this will show */}
-      <button className='btn' onClick={openModal}><FaPenAlt />Admin Modal</button>
+      {/* <button className='btn' onClick={openModal}><FaPenAlt />Admin Modal</button>
       <label for="my-modal" class="btn modal-button">open modal</label>
 
 
@@ -57,7 +57,7 @@ function Home() {
             <label for="my-modal" class="btn">Yay!</label>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* <Modal
         isOpen={modalIsOpen}
