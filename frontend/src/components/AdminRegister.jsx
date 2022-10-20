@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import {useNavigate} from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { useSelector, useDispatch } from 'react-redux'
-import { registerAdmin, registerClient } from '../features/auth/authSlice'
+import { registerAdmin, registerClient, reset } from '../features/auth/authSlice'
 
 
 function AdminRegister() {
@@ -17,8 +18,24 @@ function AdminRegister() {
   const { firstName, lastName, email, password, password2 } = adminFormData
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const {admin, client, isLoading, isSuccess, message} = useSelector(state => state.auth)
+  const {admin, client, isLoading, isError, isSuccess, message} = useSelector(state => state.auth)
+
+
+  // Admin useEffect
+  useEffect(() => {
+    if (isError) {
+        toast.error(message)
+    }
+
+    // Redirect admin when logged in
+    if (isSuccess || admin) {
+        navigate('/admin')
+    }
+
+    dispatch(reset())
+  }, [isError, isSuccess, admin, message, navigate, dispatch])
 
   const onChange = (e) => {
     setAdminFormData((prevState) => ({
