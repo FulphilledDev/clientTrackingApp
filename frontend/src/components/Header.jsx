@@ -1,4 +1,4 @@
-import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { FaSignOutAlt, FaUser } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 function Header() {
@@ -8,11 +8,6 @@ function Header() {
             <Link to ='/'>Home</Link>
         </div>
         <ul>
-            <li>
-                <Link to='/login'>
-                    <FaSignInAlt /> Login
-                </Link>
-            </li>
             <li>
                 <Link to='/register'>
                     <FaUser /> Register
