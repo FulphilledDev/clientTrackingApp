@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 
 const clientSchema = mongoose.Schema({
+    client: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Client'
+    },
     firstName: {
         type: String,
         required: [ true, 'Please add a first name']
@@ -30,11 +35,17 @@ const clientSchema = mongoose.Schema({
     },
     height: {
         type: Number,
-        required: [ true, 'Please add a number in inches for height']
+        required: [ true, 'Please add your height (inches)']
     },
     weight: {
         type: Number,
-        required: [ true, 'Please add a number in pounds for weight']
+        required: [ true, 'Please add your current weight (pounds)']
+    },
+    goal: {
+        type: String,
+        required: [ true, 'Please select a goal'],
+        enum: ['Lose Weight/Fat', 'Gain Weight/Muscle', 'Maintain Weight', 'Increase Overall Energy', 'Regulate Hormones', 'General Nutrition Knowledge', 'Longevity'],
+        default: 'General Nutrition Knowledge'
     },
     bmr: {
         type: Number,
@@ -44,6 +55,12 @@ const clientSchema = mongoose.Schema({
     //     type: Image,
     //     required: [ true, 'Please add an Image. We would love to see your beautiful smile']
     // }
+    status: {
+        type: String,
+        required: true,
+        enum: ['Active', 'Inactive', 'Terminated'],
+        default: 'Active'
+    }
     },
 {
     timestamps: true

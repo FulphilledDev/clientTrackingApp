@@ -8,10 +8,10 @@ const Client = require('../models/clientModel')
 // @route   /client
 // @access  Public
 const registerClient = asyncHandler(async (req, res) => {
-    const { firstName, lastName, email, password, occupation, height, weight, bmr } = (req.body)
+    const { firstName, lastName, email, password, occupation, height, weight, goal, bmr } = (req.body)
 
     // Validation
-    if (!firstName || !lastName || !email || !password || !occupation || !height || !weight || !bmr ) {
+    if (!firstName || !lastName || !email || !password || !occupation || !height || !weight || !goal || !bmr ) {
         res.status(400)
         throw new Error('Please include all fields')
     }
@@ -37,6 +37,7 @@ const registerClient = asyncHandler(async (req, res) => {
         occupation,
         height,
         weight,
+        goal,
         bmr
     })
 
@@ -49,6 +50,7 @@ const registerClient = asyncHandler(async (req, res) => {
             occupation: client.occupation,
             height: client.height,
             weight: client.weight,
+            goal: client.goal,
             bmr: client.bmr,
             token: generateToken(client._id)
         })
@@ -58,7 +60,7 @@ const registerClient = asyncHandler(async (req, res) => {
     }
 })
 
-// @desc    Login client
+// @desc    Login Client
 // @route   /client/login
 // @access  Public
 const loginClient = asyncHandler(async (req, res) => {
@@ -81,7 +83,7 @@ const loginClient = asyncHandler(async (req, res) => {
     }
 })
 
-// @desc    Get current client
+// @desc    Get Logged In Client
 // @route   /client/me
 // @access  Private
 const getClient = asyncHandler(async (req, res) => {

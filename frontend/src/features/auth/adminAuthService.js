@@ -4,22 +4,42 @@ const ADMIN_URL = '/admin/'
 
 // Register Admin
 const registerAdmin = async (adminData) => {
-    const response = await axios.post(ADMIN_URL + 'register', adminData)
+    const response = await axios.post(ADMIN_URL, {
+        headers: {
+            Accept: 'application/json'
+        }
+    }, adminData)
+        .then(function (response) {
+            localStorage.setItem('admin', JSON.stringify(response))
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+    
+        return response
 
-    if(response.data) {
-        localStorage.setItem('admin', JSON.stringify(response.data))
-    }
-    return response.data
+    // if(response.data) {
+    //     localStorage.setItem('admin', JSON.stringify(response.data))
+    // }
+    // return response.data
 }
 
 // Login Admin
 const loginAdmin = async (adminData) => {
-    const response = await axios.post(ADMIN_URL + 'login', adminData)
+    const response = await axios.post(ADMIN_URL, adminData)
+        .then(function (response) {
+            localStorage.setItem('admin', JSON.stringify(response))
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+    
+        return response
 
-    if(response.data) {
-        localStorage.setItem('admin', JSON.stringify(response.data))
-    }
-    return response.data
+    // if(response.data) {
+    //     localStorage.setItem('admin', JSON.stringify(response.data))
+    // }
+    // return response.data
 }
 
 // Logout Admin

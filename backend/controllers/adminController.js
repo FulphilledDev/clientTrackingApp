@@ -3,9 +3,10 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const Admin = require('../models/adminModel')
+const Client = require('../models/clientModel')
 
 // @desc    Register a new admin (1 time)
-// @route   /admin
+// @route   '/' (Home Page)
 // @access  Public
 const registerAdmin = asyncHandler(async (req, res) => {
     const { firstName, lastName, email, password } = (req.body)
@@ -51,7 +52,7 @@ const registerAdmin = asyncHandler(async (req, res) => {
 })
 
 // @desc    Login admin
-// @route   /admin/login
+// @route   '/' (Home Page)
 // @access  Public
 const loginAdmin = asyncHandler(async (req, res) => {
     const { email, password } = req.body
@@ -93,8 +94,24 @@ const generateToken = (id) => {
     })
 }
 
+// @desc    Get Admin Clients
+// @route   GET /admin/clients
+// @access  Private
+const getAdminClients = asyncHandler(async (req, res) => {
+    res.status(200).json({ message: 'getClients' })
+})
+
+// @desc    Create Admin Clients
+// @route   POST /admin/clients
+// @access  Private
+const createAdminClient = asyncHandler(async (req, res) => {
+    res.status(200).json({ message: 'createTicket' })
+})
+
 module.exports = {
     registerAdmin,
     loginAdmin,
-    getAdmin
+    getAdmin,
+    getAdminClients,
+    createAdminClient,
 }

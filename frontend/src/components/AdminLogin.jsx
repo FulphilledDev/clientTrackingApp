@@ -48,7 +48,7 @@ function AdminLogin() {
       adminPassword
     }
 
-    { adminData && dispatch(loginAdmin(adminData))}
+    dispatch(loginAdmin(adminData))
   }
 
   if(isLoading) {
