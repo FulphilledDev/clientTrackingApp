@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { FaPenAlt, FaHandPaper } from 'react-icons/fa'
 import AdminRegister from '../components/AdminRegister';
 import AdminLogin from '../components/AdminLogin';
-import ClientLogin from '../components/ClientLogin';
 
 
 function Home() {
