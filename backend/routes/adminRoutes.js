@@ -14,7 +14,7 @@ router.post('/register', registerAdmin)
 router.post('/login', loginAdmin)
 router.get('/me', protect, getAdmin)
 
-// Get and Create Client
-router.route('/').get(protect, getClients).post(protect, createClient)
+// // Get and Create Client
+// router.route('/').get(protect, getClients).post(protect, createClient)
 
 module.exports = router
