@@ -7,7 +7,7 @@ const Contract = require('../models/contractModel')
 const Entry = require('../models/entryModel')
 
 // @desc    Register a New User
-// @route   '/users'
+// @route   '/'
 // @access  Public
 const register = asyncHandler( async (req, res) => {
     const { firstName, lastName, email, password } = (req.body)
@@ -52,7 +52,7 @@ const register = asyncHandler( async (req, res) => {
 })
 
 // @desc    Login User
-// @route   '/users'
+// @route   'users/login'
 // @access  Public
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body
@@ -86,16 +86,17 @@ const generateToken = (id) => {
 }
 
 
-// // @desc    Get current User
-// // @route   /user/me
-// // @access  Private
-// const getUser = asyncHandler(async (req, res) => {
-//     const user = {
-//         id: req.user._id,
-//         email: req.user.email
-//     }
-//     res.status(200).json(user)
-// })
+// @desc    Get current User
+// @route   '/users/me'
+// @access  Private
+const getMe = asyncHandler(async (req, res) => {
+    const user = {
+        id: req.user._id,
+        firstName: req.user.firstName,
+        email: req.user.email
+    }
+    res.status(200).json(user)
+})
 
 // // @desc    Get User Contracts
 // // @route   GET /:userId/contracts
@@ -113,5 +114,6 @@ const generateToken = (id) => {
 
 module.exports = {
     register,
-    login
+    login,
+    getMe
 }
