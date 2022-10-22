@@ -98,19 +98,6 @@ const getMe = asyncHandler(async (req, res) => {
     res.status(200).json(user)
 })
 
-// // @desc    Get User Contracts
-// // @route   GET /:userId/contracts
-// // @access  Private
-// const getContracts = asyncHandler(async (req, res) => {
-//     res.status(200).json({ message: 'getContracts' })
-// })
-
-// // @desc    Create New Contract
-// // @route   POST /:userId/new-contract
-// // @access  Private
-// const createContract = asyncHandler(async (req, res) => {
-//     res.status(200).json({ message: 'createContract' })
-// })
 
 module.exports = {
     register,

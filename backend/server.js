@@ -14,13 +14,10 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-
-app.get('/', (req, res) => {
-    res.status(200).json({ message: 'Hello Hello'})
-})
-
 // Routes
 app.use('/users', require('./routes/userRoutes'))
+app.use('/users/contracts', require('./routes/contractRoutes'))
+app.use('/users/entries', require('./routes/entryRoutes'))
 
 app.use(errorHandler)
 
