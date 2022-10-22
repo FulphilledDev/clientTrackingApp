@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
-const adminSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
+    // For Registration
     firstName: {
         type: String,
         required: [ true, 'Please add a first name']
@@ -14,15 +15,16 @@ const adminSchema = mongoose.Schema({
         required: [ true, 'Please add an email'],
         unique: true
     },
-    // phoneNumber: {
-    //     type: Number(String),
-    //     match: [/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, 'Enter a valid phone number'],
-    //     required: false,
-    //     unique: true
-    // },
     password: {
         type: String,
         required: [ true, 'Please add a password']
+    },
+    // For Profile Customization
+    phoneNumber: {
+        type: String,
+        match: [/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, 'Enter a valid phone number'],
+        required: false,
+        unique: true
     },
     socialMediaLinks: {
         instagram: {
@@ -46,14 +48,14 @@ const adminSchema = mongoose.Schema({
             required: false
         }
     },
-    isAdmin: {
-        type: Boolean,
-        default: true
-    },
+    // isAdmin: {
+    //     type: Boolean,
+    //     default: true
+    // },
 
 },
 {
     timestamps: true
 })
 
-module.exports = mongoose.model('Admin', adminSchema)
+module.exports = mongoose.model('User', userSchema)
