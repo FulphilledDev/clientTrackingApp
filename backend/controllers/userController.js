@@ -7,10 +7,10 @@ const Contract = require('../models/contractModel')
 const Entry = require('../models/entryModel')
 
 
-// @desc    Register a new user
-// @route   '/'
+// @desc    Register a New User
+// @route   '/users'
 // @access  Public
-const register = asyncHandler(async (req, res) => {
+const register = asyncHandler( async (req, res) => {
     const { firstName, lastName, email, password } = (req.body)
 
     // Validation
@@ -19,99 +19,105 @@ const register = asyncHandler(async (req, res) => {
         throw new Error('Please include all fields')
     }
 
-    // Find if user already exists
-    const userExists = await (User.findOne({email}))
+    res.send('Register User')
 
-    if (userExists) {
-        res.status(400)
-        throw new Error('User already exists')
-    }
+    // // Find if user already exists
+    // const userExists = await (User.findOne({email}))
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password, salt)
+    // if (userExists) {
+    //     res.status(400)
+    //     throw new Error('User already exists')
+    // }
 
-    // Create Admin
-    const user = await User.create({
-        firstName,
-        lastName,
-        email,
-        password: hashedPassword
-    })
+    // // Hash password
+    // const salt = await bcrypt.genSalt(10)
+    // const hashedPassword = await bcrypt.hash(password, salt)
 
-    if(user) {
-        res.status(201).json({
-            _id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            token: generateToken(user._id)
-        })
-    } else {
-        res.status(400)
-        throw new error('Invalid user data')
-    }
+    // // Create Admin
+    // const user = await User.create({
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     password: hashedPassword
+    // })
+
+    // if(user) {
+    //     res.status(201).json({
+    //         _id: user._id,
+    //         firstName: user.firstName,
+    //         lastName: user.lastName,
+    //         email: user.email,
+    //         token: generateToken(user._id)
+    //     })
+    // } else {
+    //     res.status(400)
+    //     throw new error('Invalid user data')
+    // }
 })
 
 // @desc    Login User
-// @route   '/'
+// @route   '/users'
 // @access  Public
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body
 
-    const user = await User.findOne({email})
-
-    // Check user and passwords match
-    if(user && (await bcrypt.compare(password, user.password))) {
-        res.status(200).json({
-            _id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            token: generateToken(user._id)
-        })
-    } else {
-        res.status(401)
-        throw new Error('Invalid credentials')
+    if (!email || !password) {
+        res.status(400)
+        throw new Error('Please include all fields')
     }
+
+    res.send('Login User')
+
+    // const user = await User.findOne({email})
+
+    // // Check user and passwords match
+    // if(user && (await bcrypt.compare(password, user.password))) {
+    //     res.status(200).json({
+    //         _id: user._id,
+    //         firstName: user.firstName,
+    //         lastName: user.lastName,
+    //         email: user.email,
+    //         token: generateToken(user._id)
+    //     })
+    // } else {
+    //     res.status(401)
+    //     throw new Error('Invalid credentials')
+    // }
 })
 
-// @desc    Get current User
-// @route   /user/me
-// @access  Private
-const getUser = asyncHandler(async (req, res) => {
-    const user = {
-        id: req.user._id,
-        email: req.user.email
-    }
-    res.status(200).json(user)
-})
+// // @desc    Get current User
+// // @route   /user/me
+// // @access  Private
+// const getUser = asyncHandler(async (req, res) => {
+//     const user = {
+//         id: req.user._id,
+//         email: req.user.email
+//     }
+//     res.status(200).json(user)
+// })
 
-// Generate Token
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '30d',
-    })
-}
+// // Generate Token
+// const generateToken = (id) => {
+//     return jwt.sign({ id }, process.env.JWT_SECRET, {
+//         expiresIn: '30d',
+//     })
+// }
 
-// @desc    Get User Contracts
-// @route   GET /:userId/contracts
-// @access  Private
-const getContracts = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'getContracts' })
-})
+// // @desc    Get User Contracts
+// // @route   GET /:userId/contracts
+// // @access  Private
+// const getContracts = asyncHandler(async (req, res) => {
+//     res.status(200).json({ message: 'getContracts' })
+// })
 
-// @desc    Create New Contract
-// @route   POST /:userId/new-contract
-// @access  Private
-const createContract = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'createContract' })
-})
+// // @desc    Create New Contract
+// // @route   POST /:userId/new-contract
+// // @access  Private
+// const createContract = asyncHandler(async (req, res) => {
+//     res.status(200).json({ message: 'createContract' })
+// })
 
 module.exports = {
     register,
-    login,
-    getUser,
-    getContracts,
-    createContract,
+    login
 }

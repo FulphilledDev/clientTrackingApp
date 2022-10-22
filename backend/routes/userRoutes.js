@@ -1,22 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const { 
-    register, 
-    login, 
-    getUser,
-    getContracts,
-    createContract } = require('../controllers/userController')
+const {
+    register,
+    login
+} = require('../controllers/userController') 
 
-const { protect } = require('../middleware/userMiddleware')
-
-// Home Page
 router.post('/', register)
-router.post('/', login)
+router.post('/login', login)
 
-// Dashboard
-router.get('/me', protect, getUser)
-
-// Get and Create Contracts
-router.route('/dashboard').get(protect, getContracts).post(protect, createContract)
+router.post('/dashboard', (req, res)=> {
+    res.send('Dashboard Route')
+})
 
 module.exports = router
