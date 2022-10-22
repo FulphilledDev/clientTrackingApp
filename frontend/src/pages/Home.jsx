@@ -14,6 +14,8 @@ function Home() {
                 <button>
                     <Login />
                 </button>
+            </li>
+            <li>
                 <button>
                     <Register />
                 </button>
