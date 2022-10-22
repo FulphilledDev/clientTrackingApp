@@ -5,6 +5,7 @@ import { FaPenAlt, FaFolderOpen } from 'react-icons/fa'
 function Dashboard() {
   return (
     <>
+        <Header />
         <section className='heading'>
             <h1>
                 Dashboard

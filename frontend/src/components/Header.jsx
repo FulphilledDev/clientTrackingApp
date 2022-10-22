@@ -22,15 +22,13 @@ function Header() {
               <Link to ='/dashboard'>Dashboard</Link>
             </div>
             <div>
-            </div>
-            <div>
               <button className='btn' onClick={onLogout}>
                 <FaSignOutAlt /> Logout
               </button>
             </div>
           </>
         ) : 
-        <Link to='/'>Home</Link>}
+        null}
     </header>
   )
 }
