@@ -19,40 +19,38 @@ const register = asyncHandler( async (req, res) => {
         throw new Error('Please include all fields')
     }
 
-    res.send('Register User')
+    // Find if user already exists
+    const userExists = await (User.findOne({email}))
 
-    // // Find if user already exists
-    // const userExists = await (User.findOne({email}))
+    if (userExists) {
+        res.status(400)
+        throw new Error('User already exists')
+    }
 
-    // if (userExists) {
-    //     res.status(400)
-    //     throw new Error('User already exists')
-    // }
+    // Hash password
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
 
-    // // Hash password
-    // const salt = await bcrypt.genSalt(10)
-    // const hashedPassword = await bcrypt.hash(password, salt)
+    // Create Admin
+    const user = await User.create({
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword
+    })
 
-    // // Create Admin
-    // const user = await User.create({
-    //     firstName,
-    //     lastName,
-    //     email,
-    //     password: hashedPassword
-    // })
-
-    // if(user) {
-    //     res.status(201).json({
-    //         _id: user._id,
-    //         firstName: user.firstName,
-    //         lastName: user.lastName,
-    //         email: user.email,
-    //         token: generateToken(user._id)
-    //     })
-    // } else {
-    //     res.status(400)
-    //     throw new error('Invalid user data')
-    // }
+    if(user) {
+        res.status(201).json({
+            _id: user._id,
+            // firstName: user.firstName,
+            // lastName: user.lastName,
+            email: user.email,
+            // token: generateToken(user._id)
+        })
+    } else {
+        res.status(400)
+        throw new error('Invalid user data')
+    }
 })
 
 // @desc    Login User

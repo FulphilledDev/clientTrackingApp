@@ -20,12 +20,6 @@ const userSchema = mongoose.Schema({
         required: [ true, 'Please add a password']
     },
     // For Profile Customization
-    phoneNumber: {
-        type: String,
-        match: [/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, 'Enter a valid phone number'],
-        required: false,
-        unique: true
-    },
     socialMediaLinks: {
         instagram: {
             type: String,
@@ -50,6 +44,7 @@ const userSchema = mongoose.Schema({
     },
     // isAdmin: {
     //     type: Boolean,
+    //    required: true,
     //     default: true
     // },
 
