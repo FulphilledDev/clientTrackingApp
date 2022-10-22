@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
-const Admin = require('../models/adminModel')
+const User = require('../models/userModel')
 
 const protect = asyncHandler(async (req, res, next) => {
     let token
@@ -12,7 +12,7 @@ const protect = asyncHandler(async (req, res, next) => {
             // Verify token
             const decoded = jwt.verify(token, process.env.JWT_SECRET)
             // Get user from token
-            req.admin = await Admin.findById(decoded.id).select('-password')
+            req.user = await User.findById(decoded.id).select('-password')
             // Now call the next piece of middleware
             next()
         } catch (error) {
