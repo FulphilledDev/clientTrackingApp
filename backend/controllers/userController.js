@@ -6,7 +6,6 @@ const User = require('../models/userModel')
 const Contract = require('../models/contractModel')
 const Entry = require('../models/entryModel')
 
-
 // @desc    Register a New User
 // @route   '/users'
 // @access  Public
@@ -42,10 +41,9 @@ const register = asyncHandler( async (req, res) => {
     if(user) {
         res.status(201).json({
             _id: user._id,
-            // firstName: user.firstName,
-            // lastName: user.lastName,
+            firstName: user.firstName,
             email: user.email,
-            // token: generateToken(user._id)
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)
@@ -64,24 +62,29 @@ const login = asyncHandler(async (req, res) => {
         throw new Error('Please include all fields')
     }
 
-    res.send('Login User')
+    const user = await User.findOne({email})
 
-    // const user = await User.findOne({email})
-
-    // // Check user and passwords match
-    // if(user && (await bcrypt.compare(password, user.password))) {
-    //     res.status(200).json({
-    //         _id: user._id,
-    //         firstName: user.firstName,
-    //         lastName: user.lastName,
-    //         email: user.email,
-    //         token: generateToken(user._id)
-    //     })
-    // } else {
-    //     res.status(401)
-    //     throw new Error('Invalid credentials')
-    // }
+    // Check user and passwords match
+    if(user && (await bcrypt.compare(password, user.password))) {
+        res.status(200).json({
+            _id: user._id,
+            firstName: user.firstName,
+            email: user.email,
+            token: generateToken(user._id)
+        })
+    } else {
+        res.status(401)
+        throw new Error('Invalid credentials')
+    }
 })
+
+// Generate Token
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d',
+    })
+}
+
 
 // // @desc    Get current User
 // // @route   /user/me
@@ -93,13 +96,6 @@ const login = asyncHandler(async (req, res) => {
 //     }
 //     res.status(200).json(user)
 // })
-
-// // Generate Token
-// const generateToken = (id) => {
-//     return jwt.sign({ id }, process.env.JWT_SECRET, {
-//         expiresIn: '30d',
-//     })
-// }
 
 // // @desc    Get User Contracts
 // // @route   GET /:userId/contracts

@@ -5,8 +5,11 @@ const {
     login
 } = require('../controllers/userController') 
 
+
 router.post('/', register)
 router.post('/', login)
+
+
 
 router.post('/dashboard', (req, res)=> {
     res.send('Dashboard Route')
