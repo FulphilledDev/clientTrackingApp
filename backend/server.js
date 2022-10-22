@@ -16,8 +16,8 @@ app.use(express.urlencoded({ extended: false }))
 
 // Routes
 app.use('/users', require('./routes/userRoutes'))
-app.use('/users/contracts', require('./routes/contractRoutes'))
-app.use('/users/entries', require('./routes/entryRoutes'))
+app.use('/userId/contracts', require('./routes/contractRoutes'))
+app.use('/userId/entries', require('./routes/entryRoutes'))
 
 app.use(errorHandler)
 
