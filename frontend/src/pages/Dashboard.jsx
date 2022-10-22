@@ -1,11 +1,9 @@
-import Header from '../components/Header';
 import { Link } from 'react-router-dom';
 import { FaPenAlt, FaFolderOpen } from 'react-icons/fa'
 
 function Dashboard() {
   return (
     <>
-        <Header />
         <section className='heading'>
             <h1>
                 Dashboard
