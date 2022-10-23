@@ -9,8 +9,8 @@ const {
 } = require('../controllers/contractController') 
 const { protect } = require('../middleware/authMiddleware')
 
-router.route('/').get(getContracts).post(protect, createContract)
-router.route('/:id').get(getContract).delete(protect, deleteContract).put(protect, updateContract)
+router.route('/').get(protect, getContracts).post(protect, createContract)
+router.route('/:id').get(protect, getContract).delete(protect, deleteContract).put(protect, updateContract)
 
 
 module.exports = router
