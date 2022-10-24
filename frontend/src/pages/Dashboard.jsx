@@ -1,7 +1,18 @@
 import { Link } from 'react-router-dom';
-import { FaPenAlt, FaFolderOpen } from 'react-icons/fa'
+import { useState } from 'react';
+import { FaPenAlt, FaFolderOpen } from 'react-icons/fa';
+import NewContract from '../components/NewContract';
 
 function Dashboard() {
+    const [ toggle, setToggle ] = useState('closed')
+
+    const onToggle = () => {
+        if(toggle === 'closed') {
+            setToggle('open')
+        } else {
+            setToggle('closed')
+        }
+    }
   return (
     <>
         <section className='heading'>
@@ -11,9 +22,12 @@ function Dashboard() {
             <p>Welcome Back!</p>
         </section>
 
-        <Link to='/new-contract' className='btn btn-reverse btn-block'>
+        <button onClick={onToggle} className='btn btn-reverse btn-block'>
             <FaPenAlt /> Create New Contract
-        </Link>
+        </button>
+        <div>
+            { toggle === 'open' && <NewContract />}
+        </div>
         <Link to='/contracts' className='btn btn-block'>
             <FaFolderOpen /> View My Contracts
         </Link>
