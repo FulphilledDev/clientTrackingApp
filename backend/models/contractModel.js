@@ -1,28 +1,58 @@
 const mongoose = require('mongoose')
-const userModel = require('./userModel')
+const userSchema = require('./userModel')
 
 const contractSchema = mongoose.Schema({
+    // First way to set an array of objects to identify
+    // users: [{
+    //     type: String,
+    //     required: true,
+    //     enum: ['Sender', 'Receiver']
+    // }],
+    // Second way to set an array of objects to identify
     users: {
         type: Array,
         required: true,
     },
-    contractTerms: {
+    // Third way to set an array of objects to identify
+    // users: [
+    //     {sender: {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         required: true,
+    //         ref: 'User',
+    //     }},
+    //     {receiver: {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         required: true,
+    //         ref: 'User',
+    //     }}
+    // ],
+    
+    details: {
         type: Array,
         required: true,
+    },
+    status: {
+            type: String,
+            required: true,
+            pending: {
+                type: Boolean,
+                required: true,
+                default: false
+            },
+            approved: {
+                type: Boolean,
+                required: true,
+                default: false
+            },
+            denied: {
+                type: Boolean,
+                required: true,
+                default: false
+            }
     }
-    // users: [{
-    //     sender: {
-    //         type: String,
-    //         required: true,
-    //         // type: mongoose.Schema.Types.ObjectId,
-    //         // required: true,
-    //         // ref: 'User'
-    //     },
-    //     receiver: {
-    //         type: String,
-    //         required: true,
-    //     }
-    // }],
+    
+    
+   
     // contractTerms: [{
         // sentAt: {
         //     type: Date

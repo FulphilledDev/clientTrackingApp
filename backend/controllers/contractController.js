@@ -30,14 +30,15 @@ const getContracts = asyncHandler(async (req, res) => {
 // @route   POST /contracts
 // @access  Private
 const createContract = asyncHandler(async (req, res) => {
-    const { users, contractTerms } = req.body
+
+    const { users, details } = req.body
 
     if( !users ) {
         res.status(400)
         throw new Error('Please add users')
     }
 
-    if( !contractTerms ) {
+    if( !details ) {
         res.status(400)
         throw new Error('Please add contract terms')
     }
@@ -51,10 +52,9 @@ const createContract = asyncHandler(async (req, res) => {
     }
 
     const contract = await Contract.create({
-        user: req.user.id,
         users,
-        contractTerms,
-        status: 'pending'
+        details,
+        status: 'Pending'
     })
     
     res.status(201).json(contract)
