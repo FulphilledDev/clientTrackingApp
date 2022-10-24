@@ -61,24 +61,90 @@ const createContract = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get User Contract
-// @route   GET /contract/:id
+// @route   GET /contracts/:id
 // @access  Private
 const getContract = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'get one contract' })
+    // Get user using the id in the JWT
+    const user = await User.findById(req.user.id)
+
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    const contract = await Contract.findById(req.params.id)
+
+    if(!contract) {
+        res.status(404)
+        throw new Error('Contract not found')
+    }
+
+    if (contract.users[0].toString() !== req.user.id) {
+        res.status(401)
+        throw new Error('Not Authrized')
+    }
+
+    res.status(200).json(contract)
 })
 
 // @desc    Update Contract
 // @route   PUT /contracts/:id
 // @access  Private
 const updateContract = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'update one Contract' })
+    // Get user using the id in the JWT
+    const user = await User.findById(req.user.id)
+
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    const contract = await Contract.findById(req.params.id)
+
+    if(!contract) {
+        res.status(404)
+        throw new Error('Contract not found')
+    }
+
+    if (contract.users[0].toString() !== req.user.id) {
+        res.status(401)
+        throw new Error('Not Authrized')
+    }
+
+    const updatedContract = await Contract.findByIdAndUpdate(req.params.id, req.body, {
+        status: 'Pending'
+    })
+
+    res.status(200).json(updatedContract)
 })
 
 // @desc    Delete Contracts
 // @route   DELETE /contracts/:id
 // @access  Private
 const deleteContract = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'delete one Contract' })
+    // Get user using the id in the JWT
+    const user = await User.findById(req.user.id)
+
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    const contract = await Contract.findById(req.params.id)
+
+    if(!contract) {
+        res.status(404)
+        throw new Error('Contract not found')
+    }
+
+    if (contract.users[0].toString() !== req.user.id) {
+        res.status(401)
+        throw new Error('Not Authrized')
+    }
+
+    await contract.remove()
+
+    res.status(200).json({deleted: true})
 })
 
 // Additional Routes: 
