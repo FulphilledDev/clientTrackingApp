@@ -30,6 +30,14 @@ const getContracts = asyncHandler(async (req, res) => {
 // @route   POST /contracts
 // @access  Private
 const createContract = asyncHandler(async (req, res) => {
+    // Get user to verify logged in
+    const user = await User.findById(req.user.id)
+
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
 
     const { receiver, sentAt, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
     // 
@@ -91,10 +99,10 @@ const getContract = asyncHandler(async (req, res) => {
         throw new Error('Contract not found')
     }
 
-    // if (contract.users[0].toString() !== req.user.id) {
-    //     res.status(401)
-    //     throw new Error('Not Authrized')
-    // }
+    if (contract.users.sender !== req.user.email || contract.users.receiver !== req.user.email) {
+        res.status(401)
+        throw new Error('Not Authrized')
+    }
 
     res.status(200).json(contract)
 })
@@ -103,6 +111,14 @@ const getContract = asyncHandler(async (req, res) => {
 // @route   PUT /contracts/:id
 // @access  Private
 const updateContractDetails = asyncHandler(async (req, res) => {
+    // Get user using the id in the JWT
+    const user = await User.findById(req.user.id)
+
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
     const { sentAt, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
 
     const contract = await Contract.findById(req.params.id)
@@ -113,10 +129,10 @@ const updateContractDetails = asyncHandler(async (req, res) => {
     }
 
     // Verifying authorization by email or user
-    // if (contract.users.sender !== req.user.id) {
-    //     res.status(401)
-    //     throw new Error('Not Authrized')
-    // }
+    if (contract.users.receiver !== req.user.email) {
+        res.status(401)
+        throw new Error('Not Authrized')
+    }
 
     const updatedContract = await Contract.findByIdAndUpdate(req.params.id, 
         {"users" : {
@@ -132,7 +148,7 @@ const updateContractDetails = asyncHandler(async (req, res) => {
             service: service, 
             length: length
         },
-        "status": 'Pending'
+        "status": 'pending'
     },{ new: true })
 
     res.status(200).json(updatedContract)
@@ -167,10 +183,104 @@ const deleteContract = asyncHandler(async (req, res) => {
     res.status(200).json({deleted: true})
 })
 
-// Additional Routes: 
-// --> Approve Contract: approveContract 
-// Whoever pressed this button === user.sender : 'Not Authorized'
-// --> Deny Contract: cancelContract
+// @desc    Approve Contract
+// @route   PUT /contracts/:id/approve
+// @access  Private
+const approveContract = asyncHandler(async (req, res) => {
+    // Get user using the id in the JWT
+    const user = await User.findById(req.user.id)
+
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    const { sentAt, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
+
+    // Check if contract already exists
+    const contract = await Contract.findById(req.params.id)
+
+    if(contract.status === 'approved') {
+        res.status(404)
+        throw new Error('Contract has already been approved')
+    }
+
+    // Verifying authorization by email or user
+    // Whoever received this contract === user.receiver : 'Not Authorized to approve'
+    if (contract.users.receiver !== req.user.email) {
+        res.status(401)
+        throw new Error('Not authrized to approve')
+    }
+
+    const approvedContract = await Contract.findByIdAndUpdate(req.params.id,
+        {"users" : {
+            sender: req.user.email,
+            receiver: contract.users.sender
+        },
+            "details": {
+            sentAt: sentAt, 
+            startDate: startDate, 
+            completionDate: completionDate, 
+            paymentInterval: paymentInterval, 
+            paymentAmount: paymentAmount, 
+            service: service, 
+            length: length
+        },
+        "status": 'approved'
+    },
+    { new: true })
+
+    res.status(200).json(approvedContract)
+})
+
+// @desc    Deny Contract
+// @route   PUT /contracts/:id/deny
+// @access  Private
+const denyContract = asyncHandler(async (req, res) => {
+    // Get user using the id in the JWT
+    const user = await User.findById(req.user.id)
+
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    const { sentAt, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
+
+    // Check if contract and is denied
+    const contract = await Contract.findById(req.params.id)
+
+    if(contract && contract.status === 'denied') {
+        res.status(404)
+        throw new Error('Contract has already been denied')
+    }
+
+    // Verifying authorization by email or user
+    // Whoever received this contract === user.receiver : 'Not Authorized to deny'
+    if (contract.users.receiver !== req.user.email) {
+        res.status(401)
+        throw new Error('Not authrized to deny')
+    }
+
+    const deniedContract = await Contract.findByIdAndUpdate(req.params.id, 
+        {"users" : {
+            sender: req.user.email,
+            receiver: contract.users.sender
+        },
+            "details": {
+            sentAt: sentAt, 
+            startDate: startDate, 
+            completionDate: completionDate, 
+            paymentInterval: paymentInterval, 
+            paymentAmount: paymentAmount, 
+            service: service, 
+            length: length
+        },
+        "status": 'denied'},
+        { new: true })
+
+    res.status(200).json(deniedContract)
+})
 
 
 module.exports = {
@@ -178,5 +288,7 @@ module.exports = {
     getContract,
     createContract,
     updateContractDetails,
-    deleteContract
+    deleteContract,
+    approveContract,
+    denyContract
 }

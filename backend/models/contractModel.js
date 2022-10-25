@@ -29,12 +29,31 @@ const contractSchema = mongoose.Schema({
             required: true
         },
         startDate: {
-            type: Number,
-            required: true
+            type: Date,
+            required: true,
+            // validate: {
+            //     validator: function (v) {
+            //         return (
+            //             v && // check that there is a date object
+            //             v.getTime() > Date.now() + 24 * 60 * 60 * 1000
+            //             )
+            //         },
+            //     message: 'A start date must be at least 1 day from now'
+            // }
         },
         completionDate: {
-            type: Number,
-            required: true
+            type: Date,
+            required: true,
+            // validate: {
+            //     validator: function (v) {
+            //         return (
+            //             v && // check that there is a date object
+            //             v.getTime() > Date.now() + 24 * 60 * 60 * 1000 &&
+            //             v.getTime() < Date.now() + 365 * 24 * 60 * 60 * 1000
+            //             )
+            //         },
+            //     message: 'A completion date must be at least 30 days from now and not more than 1 year'
+            // }
         },
         paymentInterval: {
             type: Number,

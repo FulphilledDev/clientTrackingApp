@@ -5,12 +5,23 @@ const {
     getContract,
     createContract,
     updateContractDetails,
-    deleteContract
+    deleteContract,
+    approveContract,
+    denyContract
 } = require('../controllers/contractController') 
 const { protect } = require('../middleware/authMiddleware')
 
-router.route('/').get(protect, getContracts).post(protect, createContract)
-router.route('/:id').get(protect, getContract).delete(protect, deleteContract).put(protect, updateContractDetails)
+router.route('/')
+    .get(protect, getContracts)
+    .post(protect, createContract)
+router.route('/:id')
+    .get(protect, getContract)
+    .delete(protect, deleteContract)
+    .put(protect, updateContractDetails)
+router.route('/:id/approve')
+    .put(protect, approveContract)
+router.route('/:id/deny')
+    .put(protect, denyContract)    
 
 
 module.exports = router
