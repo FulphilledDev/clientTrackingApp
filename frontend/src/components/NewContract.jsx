@@ -1,11 +1,17 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { createContract, reset } from '../features/contracts/contractSlice'
+import Spinner from './Spinner'
 
 function NewContract() {
   const { user } = useSelector((state) => state.auth)
+  const { isLoading, isError, isSuccess, message} = useSelector((state) => state.contract)
+
   const [ sender ] = useState(user.email)
   const [ receiver, setReceiver ] = useState('')
-  const [ sentAt, setSentAt ] = useState(Date.now())
+  const [ sentAt, setSentAt ] = useState(Date)
   const [ service, setService ] = useState('Nutrition Coaching')
   const [ length, setLength ] = useState(0)
   const [ startDate, setStartDate ] = useState('')
@@ -13,8 +19,46 @@ function NewContract() {
   const [ paymentInterval, setPaymentInterval ] = useState('Monthly')
   const [ paymentAmount, setPaymentAmount ] = useState(Number)
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(()=> {
+    if(isError) {
+      toast.error(message)
+    }
+
+    if(isSuccess) {
+      dispatch(reset())
+      navigate('/dashboard')
+    }
+
+    dispatch(reset())
+  }, [dispatch, isError, isSuccess, navigate, message])
+
   const onSubmit = (e) => {
     e.prevent.Default()
+
+    dispatch(createContract(
+      {"users" : {
+            sender: sender,
+            receiver: receiver
+        },
+            "details": {
+            // sentAt: sentAt, 
+            startDate: startDate, 
+            completionDate: completionDate, 
+            paymentInterval: paymentInterval, 
+            paymentAmount: paymentAmount, 
+            service: service, 
+            length: length
+        },
+        "status": 'pending'
+    },{ new: true }
+    ))
+  }
+
+  if(isLoading) {
+    return <Spinner />
   }
 
 
@@ -44,7 +88,7 @@ function NewContract() {
               value={receiver}
               onChange={(e) => setReceiver(e.target.value)}/>
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="sentAt">Date Requested</label>
             <input 
               className="form-control" 
@@ -52,7 +96,7 @@ function NewContract() {
               value={sentAt}
               disabled
               />
-          </div>
+          </div> */}
           <div className="form-group">
             <label htmlFor="service">Service</label>
             <select 
@@ -81,14 +125,14 @@ function NewContract() {
               value={completionDate}
               onChange={(e) => setCompletionDate(e.target.value)}/>
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="length">Length of Contact (Months)</label>
             <input 
               className="form-control" 
               type='number' 
               value={length}
               disabled/>
-          </div>
+          </div> */}
           <div className="form-group">
             <label htmlFor="paymentAmount">Payment Amount (USD)</label>
             <input 
