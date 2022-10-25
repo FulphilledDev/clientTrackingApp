@@ -17,7 +17,7 @@ const contractSchema = mongoose.Schema({
     },
     details: {
         sentAt: {
-            type: Date
+            type: Date.now()
         },
         service: {
             type: String,
@@ -57,7 +57,8 @@ const contractSchema = mongoose.Schema({
         },
         paymentInterval: {
             type: Number,
-            required: true
+            required: true,
+            enum: ['Weekly', 'Bi-Weekly', 'Monthly', 'Quarterly', 'Bi-Yearly','Yearly']
         },
         paymentAmount: {
             type: Number,
