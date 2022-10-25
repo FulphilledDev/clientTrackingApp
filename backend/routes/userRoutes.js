@@ -12,8 +12,4 @@ router.post('/', register)
 router.post('/login', login)
 router.get('/me', protect, getMe)
 
-router.post('/dashboard', (req, res)=> {
-    res.send('Dashboard Route')
-})
-
 module.exports = router

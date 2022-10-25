@@ -3,11 +3,9 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const User = require('../models/userModel')
-const Contract = require('../models/contractModel')
-const Entry = require('../models/entryModel')
 
 // @desc    Register a New User
-// @route   '/'
+// @route   '/api'
 // @access  Public
 const register = asyncHandler( async (req, res) => {
     const { firstName, lastName, email, password } = (req.body)
@@ -52,7 +50,7 @@ const register = asyncHandler( async (req, res) => {
 })
 
 // @desc    Login User
-// @route   'users/login'
+// @route   'api/users/login'
 // @access  Public
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body
@@ -87,7 +85,7 @@ const generateToken = (id) => {
 
 
 // @desc    Get current User
-// @route   '/users/me'
+// @route   'api/users/me'
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
     const user = {

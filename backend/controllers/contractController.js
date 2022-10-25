@@ -4,7 +4,7 @@ const User = require('../models/userModel')
 const Contract = require('../models/contractModel')
 
 // @desc    Get User Contracts
-// @route   GET /contracts
+// @route   GET /api/contracts
 // @access  Private
 const getContracts = asyncHandler(async (req, res) => {
     // Get user using the id in the JWT
@@ -27,7 +27,7 @@ const getContracts = asyncHandler(async (req, res) => {
 })
 
 // @desc    Create New Contract
-// @route   POST /contracts
+// @route   POST /api/contracts
 // @access  Private
 const createContract = asyncHandler(async (req, res) => {
     // Get user to verify logged in
@@ -81,7 +81,7 @@ const createContract = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get User Contract
-// @route   GET /contracts/:id
+// @route   GET /api/contracts/:id
 // @access  Private
 const getContract = asyncHandler(async (req, res) => {
     // Get user using the id in the JWT
@@ -108,7 +108,7 @@ const getContract = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update Contract
-// @route   PUT /contracts/:id
+// @route   PUT /api/contracts/:id
 // @access  Private
 const updateContractDetails = asyncHandler(async (req, res) => {
     // Get user using the id in the JWT
@@ -155,7 +155,7 @@ const updateContractDetails = asyncHandler(async (req, res) => {
 })
 
 // @desc    Delete Contracts
-// @route   DELETE /contracts/:id
+// @route   DELETE /api/contracts/:id
 // @access  Private
 const deleteContract = asyncHandler(async (req, res) => {
     // Get user using the id in the JWT
@@ -184,7 +184,7 @@ const deleteContract = asyncHandler(async (req, res) => {
 })
 
 // @desc    Approve Contract
-// @route   PUT /contracts/:id/approve
+// @route   PUT /api/contracts/:id/approve
 // @access  Private
 const approveContract = asyncHandler(async (req, res) => {
     // Get user using the id in the JWT
@@ -234,7 +234,7 @@ const approveContract = asyncHandler(async (req, res) => {
 })
 
 // @desc    Deny Contract
-// @route   PUT /contracts/:id/deny
+// @route   PUT /api/contracts/:id/deny
 // @access  Private
 const denyContract = asyncHandler(async (req, res) => {
     // Get user using the id in the JWT

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { FaPenAlt, FaFolderOpen } from 'react-icons/fa';
 import NewContract from '../components/NewContract';
@@ -28,9 +27,12 @@ function Dashboard() {
         <div>
             { toggle === 'open' && <NewContract />}
         </div>
-        <Link to='/contracts' className='btn btn-block'>
+        {/* <button onClick={onToggle} className='btn btn-block'>
             <FaFolderOpen /> View My Contracts
-        </Link>
+        </button>
+        <div>
+            { toggle === 'open' && <MyContracts />}
+        </div> */}
     </>
   )
 }
