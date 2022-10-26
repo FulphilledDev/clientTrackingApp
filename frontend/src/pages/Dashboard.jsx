@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { FaPenAlt, FaFolderOpen } from 'react-icons/fa';
 import NewContract from '../components/NewContract';
+import Contracts from '../components/Contracts';
 
 function Dashboard() {
     const [ toggle, setToggle ] = useState('closed')
+    const [ toggleContracts, setToggleContracts] = useState('closed')
 
     const onToggle = () => {
         if(toggle === 'closed') {
@@ -12,6 +14,15 @@ function Dashboard() {
             setToggle('closed')
         }
     }
+
+    const onToggleContracts = () => {
+        if(toggleContracts === 'closed') {
+            setToggleContracts('open')
+        } else {
+            setToggleContracts('closed')
+        }
+    }
+
   return (
     <>
         <section className='heading'>
@@ -27,12 +38,12 @@ function Dashboard() {
         <div>
             { toggle === 'open' && <NewContract />}
         </div>
-        {/* <button onClick={onToggle} className='btn btn-block'>
+        <button onClick={onToggleContracts} className='btn btn-block'>
             <FaFolderOpen /> View My Contracts
         </button>
         <div>
-            { toggle === 'open' && <MyContracts />}
-        </div> */}
+            { toggleContracts === 'open' && <Contracts />}
+        </div>
     </>
   )
 }
