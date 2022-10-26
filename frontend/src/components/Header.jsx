@@ -11,23 +11,23 @@ function Header() {
   const onLogout = () => {
     dispatch(logout())
     dispatch(reset())
-    navigate('/api')
+    navigate('/api/users')
   }
 
   return (
     <header className='header'>
-        {user ? (
+        {user && (
           <>
             <div className="logo">
-              <Link to ='/dashboard'>Dashboard</Link>
+              <Link to ='/api/dashboard'>Dashboard</Link>
             </div>
             <div>
-                <Link to='/api' className='btn' onClick={onLogout}>
+                <Link to='/api/users' className='btn' onClick={onLogout}>
                   <FaSignOutAlt /> Logout
                 </Link>
             </div>
           </>
-        ) : null}
+        )}
     </header>
   )
 }

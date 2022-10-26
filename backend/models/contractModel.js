@@ -11,10 +11,6 @@ const contractSchema = mongoose.Schema({
             type: String,
             required: true,
     }},
-    status: {
-            type: String,
-            enum: ['pending', 'approved', 'denied']
-    },
     details: {
         sentAt: {
             type: Date
@@ -24,10 +20,6 @@ const contractSchema = mongoose.Schema({
             required: [true, 'Please select a service'],
             enum: ['Nutrition Coaching', 'Mental Performance Coaching', 'Life Performance Coaching']
         },
-        // length: {
-        //     type: Number,
-        //     required: true
-        // },
         startDate: {
             type: Date,
             required: true,
@@ -40,6 +32,10 @@ const contractSchema = mongoose.Schema({
                     },
                 message: 'A start date must be at least 1 day from now'
             }
+        },
+        length: {
+            type: Number,
+            required: true
         },
         completionDate: {
             type: Date,
@@ -56,7 +52,7 @@ const contractSchema = mongoose.Schema({
             }
         },
         paymentInterval: {
-            type: Number,
+            type: String,
             required: true,
             enum: ['Weekly', 'Bi-Weekly', 'Monthly', 'Quarterly', 'Bi-Yearly','Yearly']
         },
@@ -64,7 +60,11 @@ const contractSchema = mongoose.Schema({
             type: Number,
             required: true
         }
-    }
+    },
+    status: {
+            type: String,
+            enum: ['pending', 'approved', 'denied']
+    },
 },{
     timestamps: true,
 })

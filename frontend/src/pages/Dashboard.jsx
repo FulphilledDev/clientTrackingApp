@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux'
 import { FaPenAlt, FaFolderOpen } from 'react-icons/fa';
 import NewContract from '../components/NewContract';
 import Contracts from '../components/Contracts';
@@ -6,6 +7,8 @@ import Contracts from '../components/Contracts';
 function Dashboard() {
     const [ toggle, setToggle ] = useState('closed')
     const [ toggleContracts, setToggleContracts] = useState('closed')
+
+    const { user } = useSelector((state) => state.auth)
 
     const onToggle = () => {
         if(toggle === 'closed') {
@@ -29,7 +32,7 @@ function Dashboard() {
             <h1>
                 Dashboard
             </h1>
-            <p>Welcome Back!</p>
+            <p>Welcome Back {user.firstName}!</p>
         </section>
 
         <button onClick={onToggle} className='btn btn-reverse btn-block'>
