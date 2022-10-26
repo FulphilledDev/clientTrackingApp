@@ -14,7 +14,7 @@ function App() {
           <Header />
           <Routes>
             <Route path='/api/users' element={<Home />} />
-            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/api/dashboard' element={<Dashboard />} />
           </Routes>
         </div>
       </Router>

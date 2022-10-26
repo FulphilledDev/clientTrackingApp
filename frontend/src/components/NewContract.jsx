@@ -29,7 +29,7 @@ function NewContract() {
 
     if(isSuccess) {
       dispatch(reset())
-      navigate('/dashboard')
+      navigate('/api/dashboard')
     }
 
     dispatch(reset())

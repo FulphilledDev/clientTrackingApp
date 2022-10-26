@@ -22,7 +22,7 @@ function Header() {
               <Link to ='/api/dashboard'>Dashboard</Link>
             </div>
             <div>
-                <Link to='/api/users' className='btn' onClick={onLogout}>
+                <Link className='btn' onClick={onLogout}>
                   <FaSignOutAlt /> Logout
                 </Link>
             </div>
