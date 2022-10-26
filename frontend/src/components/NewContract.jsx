@@ -9,9 +9,7 @@ function NewContract() {
   const { user } = useSelector((state) => state.auth)
   const { isLoading, isError, isSuccess, message} = useSelector((state) => state.contract)
 
-  const [ sender ] = useState(user.email)
   const [ receiver, setReceiver ] = useState('')
-  const [ sentAt, setSentAt ] = useState(Date)
   const [ service, setService ] = useState('Nutrition Coaching')
   const [ length, setLength ] = useState(0)
   const [ startDate, setStartDate ] = useState('')
@@ -39,21 +37,15 @@ function NewContract() {
     e.prevent.Default()
 
     dispatch(createContract(
-      {"users" : {
-            sender: sender,
-            receiver: receiver
-        },
-            "details": {
-            // sentAt: sentAt, 
-            startDate: startDate, 
-            completionDate: completionDate, 
-            paymentInterval: paymentInterval, 
-            paymentAmount: paymentAmount, 
-            service: service, 
-            length: length
-        },
-        "status": 'pending'
-    },{ new: true }
+      {
+        receiver: receiver, 
+        startDate: startDate, 
+        completionDate: completionDate, 
+        paymentInterval: paymentInterval, 
+        paymentAmount: paymentAmount, 
+        service: service, 
+        length: length
+      }
     ))
   }
 

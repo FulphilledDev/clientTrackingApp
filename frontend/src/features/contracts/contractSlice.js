@@ -13,7 +13,8 @@ const initialState = {
 // Create New Contract
 export const createContract = createAsyncThunk('contracts/create', async (contractData, thunkAPI) => {
     try {
-        return await contractService.createContract(contractData)
+        const token = thunkAPI.getState().auth.user.token
+        return await contractService.createContract(contractData, token)
     } catch (error) {
         const message = (error.response 
             && error.response.data 

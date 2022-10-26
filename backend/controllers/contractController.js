@@ -39,7 +39,7 @@ const createContract = asyncHandler(async (req, res) => {
     }
 
 
-    const { receiver, sentAt, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
+    const { receiver, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
     // 
 
     if( !receiver ) {
@@ -47,7 +47,7 @@ const createContract = asyncHandler(async (req, res) => {
         throw new Error('Please add users')
     }
 
-    if( !sentAt || !completionDate || !startDate || !paymentInterval || !paymentAmount || !service || !length ) {
+    if( !completionDate || !startDate || !paymentInterval || !paymentAmount || !service || !length ) {
         res.status(400)
         throw new Error('Please add contract details')
     }
@@ -65,8 +65,7 @@ const createContract = asyncHandler(async (req, res) => {
             sender: req.user.email,
             receiver: receiver
         },
-        details: {
-            sentAt: sentAt, 
+        details: { 
             startDate: startDate, 
             completionDate: completionDate, 
             paymentInterval: paymentInterval, 
