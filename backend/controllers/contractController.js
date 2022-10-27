@@ -52,6 +52,11 @@ const createContract = asyncHandler(async (req, res) => {
         throw new Error('Please add contract details')
     }
 
+    if( req.user.email === receiver ) {
+        res.status(400)
+        throw new Error('Invalid recipient email')
+    }
+
     // Checking that receiver email exists
     const recipient = await User.findOne({ email: receiver })
 
@@ -76,6 +81,7 @@ const createContract = asyncHandler(async (req, res) => {
         status: 'pending'
     })
     
+    console.log(contract)
     res.status(201).json(contract)
 })
 

@@ -1,6 +1,6 @@
 import { FaSignOutAlt } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
-import{ useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
 
 function Header() {
@@ -11,15 +11,15 @@ function Header() {
   const onLogout = () => {
     dispatch(logout())
     dispatch(reset())
-    navigate('/api/users')
+    navigate('/')
   }
 
   return (
     <header className='header'>
-        {user && (
+        {user ? (
           <>
             <div className="logo">
-              <Link to ='/api/dashboard'>Dashboard</Link>
+              <Link to ='/dashboard'>Dashboard</Link>
             </div>
             <div>
                 <Link className='btn' onClick={onLogout}>
@@ -27,7 +27,10 @@ function Header() {
                 </Link>
             </div>
           </>
-        )}
+        ): 
+        <div className="logo">
+          <Link to ='/'>Home</Link>
+        </div>}
     </header>
   )
 }

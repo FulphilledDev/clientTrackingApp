@@ -25,26 +25,24 @@ function NewContract() {
       toast.error(message)
     }
 
-    if(isSuccess) {
-      dispatch(reset())
-      navigate('/api/dashboard')
-    }
-
-    dispatch(reset())
+    // if(isSuccess) {
+    //   // dispatch(reset())
+    //   navigate('/dashboard')
+    // }
   }, [dispatch, isError, isSuccess, navigate, message])
 
   const onSubmit = (e) => {
     e.prevent.Default()
 
     dispatch(createContract(
-      {
-        receiver: receiver, 
-        startDate: startDate, 
-        completionDate: completionDate, 
-        paymentInterval: paymentInterval, 
-        paymentAmount: paymentAmount, 
-        service: service, 
-        length: length
+      {receiver, startDate, completionDate, paymentInterval, paymentAmount, service, length
+        // receiver: receiver, 
+        // startDate: startDate, 
+        // completionDate: completionDate, 
+        // paymentInterval: paymentInterval, 
+        // paymentAmount: paymentAmount, 
+        // service: service, 
+        // length: length
       }
     ))
   }

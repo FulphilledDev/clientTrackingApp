@@ -32,7 +32,7 @@ function Dashboard() {
             <h1>
                 Dashboard
             </h1>
-            <p>Welcome Back {user.firstName}!</p>
+            <p>Welcome Back {user ? user.firstName : null}!</p>
         </section>
 
         <button onClick={onToggle} className='btn btn-reverse btn-block'>

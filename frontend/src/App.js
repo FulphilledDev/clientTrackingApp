@@ -13,8 +13,8 @@ function App() {
         <div className='container'>
           <Header />
           <Routes>
-            <Route path='/api/users' element={<Home />} />
-            <Route path='/api/dashboard' element={<Dashboard />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/dashboard' element={<Dashboard />} />
           </Routes>
         </div>
       </Router>

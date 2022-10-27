@@ -26,7 +26,7 @@ function Login() {
 
         // Redirect if user isSuccess (created)
         if(isSuccess || user) {
-            navigate('/api/dashboard')
+            navigate('/dashboard')
         }
 
         dispatch(reset())
