@@ -47,9 +47,19 @@ const createContract = asyncHandler(async (req, res) => {
         throw new Error('Please add users')
     }
 
-    if( !completionDate || !startDate || !paymentInterval || !paymentAmount || !service || !length ) {
+    if( !completionDate || !startDate || !length ) {
         res.status(400)
-        throw new Error('Please add contract details')
+        throw new Error('Please verify a start and completion date')
+    }
+
+    if ( !paymentInterval || !paymentAmount ) {
+        res.status(400)
+        throw new Error('Please add payment details')
+    }
+
+    if ( !service ) {
+        res.status(400)
+        throw new Error('Please select a service')
     }
 
     if( req.user.email === receiver ) {
@@ -81,7 +91,6 @@ const createContract = asyncHandler(async (req, res) => {
         status: 'pending'
     })
     
-    console.log(contract)
     res.status(201).json(contract)
 })
 

@@ -7,14 +7,17 @@ import Contracts from '../components/Contracts';
 function Dashboard() {
     const [ toggle, setToggle ] = useState('closed')
     const [ toggleContracts, setToggleContracts] = useState('closed')
+    const [ className, setClassName ] = useState('btn btn-reverse btn-block')
 
     const { user } = useSelector((state) => state.auth)
 
     const onToggle = () => {
         if(toggle === 'closed') {
             setToggle('open')
+            setClassName('btn btn-block')
         } else {
             setToggle('closed')
+            setClassName('btn btn-reverse btn-block')
         }
     }
 
@@ -32,7 +35,7 @@ function Dashboard() {
             <p>Welcome Back {user ? user.firstName : null}!</p>
         </section>
 
-        <button onClick={onToggle} className='btn btn-reverse btn-block'>
+        <button onClick={onToggle} className={className}>
             <FaPenAlt /> Create New Contract
         </button>
         <div>

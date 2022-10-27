@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'api/contracts'
+const API_URL = 'api/contracts/'
 
 // Create new ticket
 const createContract = async (contractData, token) => {

@@ -11,7 +11,7 @@ function NewContract() {
 
   const [ receiver, setReceiver ] = useState('')
   const [ service, setService ] = useState('Nutrition Coaching')
-  const [ length, setLength ] = useState(0)
+  const [ length, setLength ] = useState(Number)
   const [ startDate, setStartDate ] = useState('')
   const [ completionDate, setCompletionDate ] = useState('')
   const [ paymentInterval, setPaymentInterval ] = useState('Monthly')
@@ -40,7 +40,7 @@ function NewContract() {
   }, [ isError, isSuccess, message, contract, navigate, useDispatch])
 
   const onSubmit = (e) => {
-    e.prevent.Default()
+    e.preventDefault()
 
     dispatch(createContract(
       {
@@ -123,14 +123,15 @@ function NewContract() {
               value={completionDate}
               onChange={(e) => setCompletionDate(e.target.value)}/>
           </div>
-          {/* <div className="form-group">
-            <label htmlFor="length">Length of Contact (Months)</label>
+          <div className="form-group">
+            <label htmlFor="length">Length of Contract (Months)</label>
             <input 
               className="form-control" 
               type='number' 
               value={length}
-              disabled/>
-          </div> */}
+              onChange={(e) => setLength(e.target.value)}
+              />
+          </div>
           <div className="form-group">
             <label htmlFor="paymentAmount">Payment Amount (USD)</label>
             <input 

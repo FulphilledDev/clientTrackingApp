@@ -40,7 +40,7 @@ export const contractSlice = createSlice ({
             .addCase(createContract.fulfilled, (state,action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.contract.contracts.push(action.payload.contracts.slice(-1)[0])
+                state.contracts.unshift(action.payload)
             })
             .addCase(createContract.rejected, (state, action) => {
                 state.isLoading = false
