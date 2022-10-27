@@ -7,7 +7,7 @@ import Spinner from './Spinner'
 
 function NewContract() {
   const { user } = useSelector((state) => state.auth)
-  const { isLoading, isError, isSuccess, message} = useSelector((state) => state.contract)
+  const { contract, isLoading, isError, isSuccess, message} = useSelector((state) => state.contract)
 
   const [ receiver, setReceiver ] = useState('')
   const [ service, setService ] = useState('Nutrition Coaching')
@@ -25,25 +25,32 @@ function NewContract() {
       toast.error(message)
     }
 
-    // if(isSuccess) {
-    //   // dispatch(reset())
-    //   navigate('/dashboard')
-    // }
-  }, [dispatch, isError, isSuccess, navigate, message])
+    // Removed isSuccess
+    if(isSuccess && contract) {
+      dispatch(reset())
+      navigate('/dashboard')
+      toast.success('New contract created!')
+    }
+
+    if (!contract) {
+      toast.error('Oops! Something went wrong.')
+    }
+
+    // dispatch(reset())
+  }, [ isError, isSuccess, message, contract, navigate, useDispatch])
 
   const onSubmit = (e) => {
     e.prevent.Default()
 
     dispatch(createContract(
       {
-        // receiver, startDate, completionDate, paymentInterval, paymentAmount, service, length
-        receiver: receiver, 
-        startDate: startDate, 
-        completionDate: completionDate, 
-        paymentInterval: paymentInterval, 
-        paymentAmount: paymentAmount, 
-        service: service, 
-        length: length
+        receiver,
+        service, 
+        startDate,
+        length, 
+        completionDate, 
+        paymentInterval, 
+        paymentAmount, 
       }
     ))
   }

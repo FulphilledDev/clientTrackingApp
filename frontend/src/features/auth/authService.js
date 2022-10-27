@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// This matches routes reference on the backend
 const API_URL = '/api/users'
 
 // Register User

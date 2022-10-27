@@ -33,7 +33,7 @@ function Register() {
         }
 
         dispatch(reset())
-    }, [isError, isSuccess, user, message, navigate, useDispatch])
+    }, [isError, isSuccess, message, user, navigate, useDispatch])
 
     const onChange = (e) => {
         setFormData((prevState) => ({
