@@ -30,7 +30,7 @@ export const createContract = createAsyncThunk('contracts/create', async (contra
 export const getContracts = createAsyncThunk('contracts/getAll', async (_, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await contractService.getContract( token)
+        return await contractService.getContracts(token)
     } catch (error) {
         const message = (error.response 
             && error.response.data 

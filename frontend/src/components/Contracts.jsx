@@ -10,15 +10,12 @@ const Contracts = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // For displays toast.success even when the startDate is not correct via model
-    if(isSuccess && contracts) {
-      dispatch(reset())
-      toast.success('Got all contracts!')
-    }
 
-    if (!contracts) {
-      toast.error('Oops! Something went wrong.')
-    }
+    return(()=> {
+        if(isSuccess) {
+          dispatch(reset())
+        }
+    })
   }, [contracts, dispatch, isSuccess])
 
   useEffect(()=> {

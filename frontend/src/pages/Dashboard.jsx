@@ -6,7 +6,6 @@ import Contracts from '../components/Contracts';
 
 function Dashboard() {
     const [ toggle, setToggle ] = useState('closed')
-    const [ toggleContracts, setToggleContracts] = useState('closed')
     const [ className, setClassName ] = useState('btn btn-reverse btn-block')
 
     const { user } = useSelector((state) => state.auth)
@@ -18,14 +17,6 @@ function Dashboard() {
         } else {
             setToggle('closed')
             setClassName('btn btn-reverse btn-block')
-        }
-    }
-
-    const onToggleContracts = () => {
-        if(toggleContracts === 'closed') {
-            setToggleContracts('open')
-        } else {
-            setToggleContracts('closed')
         }
     }
 
@@ -41,11 +32,8 @@ function Dashboard() {
         <div>
             { toggle === 'open' && <NewContract />}
         </div>
-        <button onClick={onToggleContracts} className='btn btn-block'>
-            <FaFolderOpen /> View My Contracts
-        </button>
         <div>
-            { toggleContracts === 'open' && <Contracts />}
+            <Contracts />
         </div>
     </>
   )
