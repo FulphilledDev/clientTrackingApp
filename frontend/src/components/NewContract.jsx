@@ -25,7 +25,7 @@ function NewContract() {
       toast.error(message)
     }
 
-    // Removed isSuccess
+    // For displays toast.success even when the startDate is not correct via model
     if(isSuccess && contract) {
       dispatch(reset())
       navigate('/dashboard')
@@ -36,7 +36,7 @@ function NewContract() {
       toast.error('Oops! Something went wrong.')
     }
 
-    // dispatch(reset())
+    
   }, [ isError, isSuccess, message, contract, navigate, useDispatch])
 
   const onSubmit = (e) => {
@@ -63,7 +63,7 @@ function NewContract() {
   return (
     <>
       <section className="heading">
-        <h1>Create New Contract</h1>
+        <h1>New Contract</h1>
         <p>Please fill out the form below</p>
       </section>
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = 'api/contracts/'
 
-// Create new ticket
+// Create new contract
 const createContract = async (contractData, token) => {
     const config = {
         headers: {
@@ -15,8 +15,22 @@ const createContract = async (contractData, token) => {
     return response.data
 }
 
+// Get user contracts
+const getContracts = async (token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    const response = await axios.get(API_URL, config)
+
+    return response.data
+}
+
 const contractService = {
-    createContract
+    createContract,
+    getContracts
 }
 
 export default contractService
