@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 const userSchema = require('./userModel')
+const date = require('date-and-time')
+const now = new Date()
+const value = date.format(now,'MM/DD/YYYY')
 
 const contractSchema = mongoose.Schema({
     users: {

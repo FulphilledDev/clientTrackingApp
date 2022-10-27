@@ -191,6 +191,13 @@ h3 {
   padding: 50px;
 }
 
+.ticket-service
+{
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  padding: 50px;
+}
+
 .ticket-number {
   margin-bottom: 30px;
 }
@@ -208,18 +215,28 @@ h3 {
   font-size: 1.3rem;
 }
 
-.ticket,
 .ticket-headings {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
+  background: #ffffff;
+  padding: 10px 10px;
+  text-align: center;
+}
+.ticket {
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  width: 100%;
   align-items: center;
   margin-bottom: 20px;
   background: #f4f4f4;
-  padding: 10px 15px;
+  padding: 10px;
   border-radius: 5px;
-  text-align: center;
 }
 
 .ticket-headings {
@@ -237,19 +254,19 @@ h3 {
   text-align: center;
 }
 
-.status-new {
+.status-approved {
   background-color: green;
   color: #fff;
   border-radius: 10px;
 }
 
-.status-open {
+.status-pending {
   background-color: steelblue;
   color: #fff;
   border-radius: 10px;
 }
 
-.status-closed {
+.status-denied {
   background-color: darkred;
   color: #fff;
   border-radius: 10px;
