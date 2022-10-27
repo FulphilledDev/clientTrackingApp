@@ -19,7 +19,7 @@ const Contracts = () => {
     if (!contracts) {
       toast.error('Oops! Something went wrong.')
     }
-  }, [dispatch, isSuccess])
+  }, [contracts, dispatch, isSuccess])
 
   useEffect(()=> {
     dispatch(getContracts())
