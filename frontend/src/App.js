@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Header from './components/Header';
+// import PrivateRoute from './components/PrivateRoute';
 
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
           <Header />
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/dashboard' element={<Dashboard />} />
+            {/* <Route path='/' element={<PrivateRoute />}> */}
+              <Route path='/dashboard' element={<Dashboard />} />
+            {/* </Route> */}
           </Routes>
         </div>
       </Router>

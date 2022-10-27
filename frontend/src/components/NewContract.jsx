@@ -35,14 +35,15 @@ function NewContract() {
     e.prevent.Default()
 
     dispatch(createContract(
-      {receiver, startDate, completionDate, paymentInterval, paymentAmount, service, length
-        // receiver: receiver, 
-        // startDate: startDate, 
-        // completionDate: completionDate, 
-        // paymentInterval: paymentInterval, 
-        // paymentAmount: paymentAmount, 
-        // service: service, 
-        // length: length
+      {
+        // receiver, startDate, completionDate, paymentInterval, paymentAmount, service, length
+        receiver: receiver, 
+        startDate: startDate, 
+        completionDate: completionDate, 
+        paymentInterval: paymentInterval, 
+        paymentAmount: paymentAmount, 
+        service: service, 
+        length: length
       }
     ))
   }

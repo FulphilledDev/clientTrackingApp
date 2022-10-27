@@ -30,7 +30,7 @@ function Login() {
         }
 
         dispatch(reset())
-    }, [isError, isSuccess, user, message, navigate, useDispatch])
+    }, [isError, isSuccess, user, message, navigate, dispatch])
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -58,9 +58,6 @@ function Login() {
   return (
     <>
         <section className='heading'>
-            <h1>
-                <FaSignInAlt /> Login
-            </h1>
             <p>Please login to your account</p>
         </section>
         <section className='form'>

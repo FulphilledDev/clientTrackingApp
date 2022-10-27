@@ -45,7 +45,7 @@ const contractSchema = mongoose.Schema({
                     return (
                         v && // check that there is a date object
                         v.getTime() > Date.now() + 24 * 60 * 60 * 1000 &&
-                        v.getTime() > Date.now() + 365 * 24 * 60 * 60 * 1000
+                        v.getTime() < Date.now() + 365 * 24 * 60 * 60 * 1000
                         )
                     },
                 message: 'A completion date must be at least 30 days from now and not more than 1 year'

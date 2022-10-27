@@ -29,9 +29,6 @@ function Dashboard() {
   return (
     <>
         <section className='heading'>
-            <h1>
-                Dashboard
-            </h1>
             <p>Welcome Back {user ? user.firstName : null}!</p>
         </section>
 
