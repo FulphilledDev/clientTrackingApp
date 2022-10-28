@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { FaPenAlt } from 'react-icons/fa';
 import NewContract from '../components/NewContract';
 import Contracts from '../components/Contracts';
+import Contract from '../components/Contract';
 
 function Dashboard() {
     const [ toggle, setToggle ] = useState('closed')
@@ -50,10 +51,8 @@ function Dashboard() {
                     <NewContract />
                 </div>
             ) : (
-                <div className='h-full grid grid-rows-[1fr_150px] overflow-auto'>
-                    {currentContract._id}
-                    
-                    {/* <Contract key={currentContract._id} contract={currentContract}/> */}
+                <div className='border rounded-md h-full py-2 overflow-auto'>
+                    <Contract key={currentContract._id} contract={currentContract}/>
                 </div>
             )}
         </div>
