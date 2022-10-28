@@ -14,12 +14,10 @@ function ContractItem({contract}) {
   
     
   return (
-    <div className="contract-item">
-      <div className="grid-container">
-        <div className='grid-item'>{new Date(contract.createdAt).toLocaleString('en-us')}</div>
-        <div className='grid-item'>{contract.users.receiver}</div>
-        <div className='grid-item'>{contract.details.length}</div>
-        <div className={`status status-${contract.status} grid-item`}>
+    <div>
+      <div>
+        <div>{contract.users.receiver}</div>
+        <div className={`status status-${contract.status}`}>
             {contract.status}
         </div>
         <button onClick={onToggle} className='btn btn-reverse btn-sm'> 

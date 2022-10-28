@@ -29,19 +29,19 @@ const Contracts = () => {
 
   return (
     <>
-    <h1>
-      Contracts
-    </h1>
-    <div className="grid-container">
-        <div className='grid-item-1'>Created</div>
-        <div className='grid-item-2'>Recipient</div>
-        <div className='grid-item-4'>Length</div>
-        <div className='grid-item-5'>Status</div>
-        <div className='grid-item-6'>View</div>
-    </div>
-    {contracts.map((contract) => (
+    <div className='grid md:grid-cols-[1fr_3fr] grid-cols-1 md:grid-rows-1 grid-rows-[180px_1fr] px-4 py-2 h-full gap-2'>
+      <div className='text-center'>
+        <h1>
+          Contracts
+        </h1>
+        <div className='overflow-auto border rounded-md px-2 py-2'>
+          {contracts.map((contract) => (
           <ContractItem key={contract._id} contract={contract}/>
         ))}
+        </div>
+        
+        </div>
+    </div>
     </>
   )
 }
