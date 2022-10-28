@@ -29,9 +29,8 @@ const Contracts = () => {
 
   return (
     <>
-    <div className='grid md:grid-cols-[1fr_3fr] grid-cols-1 md:grid-rows-1 grid-rows-[180px_1fr] px-4 py-2 h-full gap-2'>
       <div className='text-center'>
-        <h1>
+        <h1 className='group relative flex w-full justify-center rounded-md border border-transparent bg-cyan-700 py-2 px-4 text-sm font-medium text-white hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2'>
           Contracts
         </h1>
         <div className='overflow-auto border rounded-md px-2 py-2'>
@@ -41,7 +40,6 @@ const Contracts = () => {
         </div>
         
         </div>
-    </div>
     </>
   )
 }

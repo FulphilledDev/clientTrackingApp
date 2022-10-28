@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Contract from './Contract'
 
 function ContractItem({contract}) {
   const [ toggleView, setToggleView ] = useState('closed')
@@ -20,12 +19,9 @@ function ContractItem({contract}) {
         <div className={`status status-${contract.status}`}>
             {contract.status}
         </div>
-        <button onClick={onToggle} className='btn btn-reverse btn-sm'> 
+        <button onClick={onToggle} className='rounded-md border border-transparent bg-cyan-700 py-1 px-2 text-sm font-medium text-white hover:bg-cyan-600'> 
             View
         </button>
-      </div>
-      <div>
-          { toggleView === 'open' && <Contract contract={contract}/>}
       </div>
     </div>
   )

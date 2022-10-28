@@ -67,8 +67,6 @@ function Register() {
   return (
     <>
         <section className='flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
-            
-
         <div className='w-full max-w-md space-y-8'>
             <p className='mt-6 text-center text-2xl font-bold tracking-tight text-gray-800'>Please create an account</p>
             <form onSubmit={onSubmit} className='mt-8 space-y-6'>
