@@ -24,9 +24,9 @@ function Home() {
     }
   return (
     <>
-        <section className="heading">
-            <h1>Hello and Welcome!</h1>
-            <p>We look forward to working with you!</p>
+        <section>
+            <h1 className='mt-6 text-center text-4xl font-bold tracking-tight text-zinc-900'>Hello and Welcome!</h1>
+            <p className='mt-2 text-center text-md text-gray-600'>We look forward to working with you!</p>
         </section>
         <section className=''>
             
