@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux'
-import { FaPenAlt, FaFolderOpen } from 'react-icons/fa';
+import { FaPenAlt } from 'react-icons/fa';
 import NewContract from '../components/NewContract';
 import Contracts from '../components/Contracts';
 
