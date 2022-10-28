@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux'
 
 function ContractItem({contract}) {
   const [ toggleView, setToggleView ] = useState('closed')
+  const { user } = useSelector((state) => state.auth)
 
   const onToggle = () => {
         if(toggleView === 'closed') {
@@ -15,7 +17,11 @@ function ContractItem({contract}) {
   return (
     <div>
       <div>
-        <div>{contract.users.receiver}</div>
+        {contract.users.receiver === user.email ? (
+          <div>{contract.users.sender}</div>
+        ) : (
+          <div>{contract.users.receiver}</div>
+        )}
         <div className={`status status-${contract.status}`}>
             {contract.status}
         </div>
