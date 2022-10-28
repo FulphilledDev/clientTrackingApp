@@ -33,20 +33,18 @@ const Contracts = () => {
     <h1>
       Contracts
     </h1>
-    <div className="tickets">
-      <div className="ticket-headings">
-        <div>Created</div>
-        <div>Service</div>
-        <div>Started</div>
-        <div>Length</div>
-        <div>Time Left</div>
-        <div>Status</div>
-        <div>View</div>
-        {contracts.map((contract) => (
+    <div className="grid-container">
+        <div className='grid-item-1'>Created</div>
+        <div className='grid-item-2'>Recipient</div>
+        <div className='grid-item-3'>Service</div>
+        <div className='grid-item-4'>Started</div>
+        <div className='grid-item-5'>Length</div>
+        <div className='grid-item-7'>Status</div>
+        <div className='grid-item-8'>View</div>
+    </div>
+    {contracts.map((contract) => (
           <ContractItem key={contract._id} contract={contract}/>
         ))}
-      </div>
-    </div>
     </>
   )
 }
