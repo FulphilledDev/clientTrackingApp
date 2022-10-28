@@ -16,7 +16,10 @@ const getContracts = asyncHandler(async (req, res) => {
     }
 
     const contracts = await Contract.find({
-        user: req.user.id
+        $or: [
+            {"users.sender": req.user.email},
+            {"users.receiver": req.user.email}
+        ]
     }).sort('desc')
 
     if(!contracts) {

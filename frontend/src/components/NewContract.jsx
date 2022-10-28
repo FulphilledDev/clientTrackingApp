@@ -25,11 +25,8 @@ function NewContract() {
       toast.error(message)
     }
 
-    // For displays toast.success even when the startDate is not correct via model
     if(isSuccess && contract) {
-      dispatch(reset())
       navigate('/dashboard')
-      toast.success('New contract created!')
     }
 
     if (!contract) {
@@ -53,6 +50,14 @@ function NewContract() {
         paymentAmount, 
       }
     ))
+
+    setReceiver('')
+    setService('Nutrition Coaching')
+    setLength(0)
+    setStartDate('')
+    setCompletionDate('')
+    setPaymentInterval('Monthly')
+    setPaymentAmount(0)
   }
 
   if(isLoading) {
