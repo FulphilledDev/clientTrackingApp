@@ -22,7 +22,7 @@ function Contract({contract, isLoading, isError}) {
     <>
     <div className="hidden sm:block" aria-hidden="true">
       <div className="py-5 px-5">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">Contract Information</h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-900">Contract Information: {contract._id}</h3>
         <div className="border-t border-gray-200" />
       </div>
     </div>
@@ -39,7 +39,7 @@ function Contract({contract, isLoading, isError}) {
                 name="first-name"
                 id="first-name"
                 autoComplete="given-name"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>
 
@@ -52,7 +52,7 @@ function Contract({contract, isLoading, isError}) {
                 name="last-name"
                 id="last-name"
                 autoComplete="family-name"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div> */}
 
@@ -72,7 +72,7 @@ function Contract({contract, isLoading, isError}) {
                 name="email-address"
                 id="email-address"
                 value={contract.users.receiver}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>
 
@@ -85,7 +85,7 @@ function Contract({contract, isLoading, isError}) {
                 name="service"
                 id="service"
                 value={contract.details.service}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>
 
@@ -97,7 +97,7 @@ function Contract({contract, isLoading, isError}) {
                 name="startDate"
                 id="startDate"
                 value={contract.details.startDate}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>
 
@@ -110,11 +110,11 @@ function Contract({contract, isLoading, isError}) {
                 name="completionDate"
                 id="completionDate"
                 value={contract.details.completionDate}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>
 
-            <div className="col-span-6">
+            <div className="col-span-3">
               <label className="block text-sm font-medium text-gray-700">
                 Length
               </label>
@@ -123,7 +123,19 @@ function Contract({contract, isLoading, isError}) {
                 name="length"
                 id="length"
                 value={contract.details.length}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
+              />
+            </div>
+            <div className="col-span-3">
+              <label className="block text-sm font-medium text-gray-700">
+                Time Left
+              </label>
+              <input
+                type="text"
+                name="length"
+                id="length"
+                value={'No calculations yet'}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>
 
@@ -136,7 +148,7 @@ function Contract({contract, isLoading, isError}) {
                 name="paymentAmount"
                 id="paymentAmount"
                 value={contract.details.paymentAmount}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>
             <div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -148,7 +160,7 @@ function Contract({contract, isLoading, isError}) {
                 name="paymentInterval"
                 id="paymentInterval"
                 value={contract.details.paymentInterval}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>
           </div>
