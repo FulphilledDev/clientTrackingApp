@@ -35,11 +35,9 @@ const Contracts = () => {
     <div className="grid-container">
         <div className='grid-item-1'>Created</div>
         <div className='grid-item-2'>Recipient</div>
-        <div className='grid-item-3'>Service</div>
-        <div className='grid-item-4'>Started</div>
-        <div className='grid-item-5'>Length</div>
-        <div className='grid-item-7'>Status</div>
-        <div className='grid-item-8'>View</div>
+        <div className='grid-item-4'>Length</div>
+        <div className='grid-item-5'>Status</div>
+        <div className='grid-item-6'>View</div>
     </div>
     {contracts.map((contract) => (
           <ContractItem key={contract._id} contract={contract}/>
