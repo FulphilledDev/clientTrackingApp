@@ -11,14 +11,22 @@ function App() {
   return (
     <>
       <Router>
-        <div className='container'>
-          <Header />
-          <Routes>
-            <Route path='/' element={<Home />} />
-            {/* <Route path='/' element={<PrivateRoute />}> */}
-              <Route path='/dashboard' element={<Dashboard />} />
-            {/* </Route> */}
-          </Routes>
+        <div className='container h-full mx-auto'>
+          <div className='bg-white h-full'>
+            <div className='mx-auto h-full max-w-7x1'>
+              <div className='z-9 bg-white h-full lg:w-full grid grid-rows-[92px_1fr]'>
+                <Header />
+                <main className='mx-auto py-2 max-w-7xl px-4 sm:px-6 sm:py-4 lg:px-8 w-full overflow-auto'>
+                <Routes>
+                  <Route path='/' element={<Home />} />
+                  {/* <Route path='/' element={<PrivateRoute />}> */}
+                    <Route path='/dashboard' element={<Dashboard />} />
+                  {/* </Route> */}
+                </Routes>
+                </main>
+              </div>
+            </div>
+          </div>
         </div>
       </Router>
       <ToastContainer />

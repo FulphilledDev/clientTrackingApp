@@ -13,21 +13,23 @@ function Header() {
   }
 
   return (
-    <header className='header'>
+    <header className='hidden items-center justify-start md:flex md:flex-1 lg:w-0'>
         {user ? (
           <>
-            <div className="logo">
-              <Link to ='/dashboard'>Dashboard</Link>
-            </div>
+            <Link to ='/dashboard'>
+              <div className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900 hover:cursor-pointer">
+                Dashboard
+              </div>
+            </Link>
             <div>
-                <Link to='/' className='btn' onClick={onLogout}>
+                <Link to='/' className='ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-700 hover:cursor-pointer' onClick={onLogout}>
                   <FaSignOutAlt /> Logout
                 </Link>
             </div>
           </>
         ): 
-        <div className="logo">
-          <Link to ='/'>Home</Link>
+        <div>
+          <Link to ='/' className='ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-700 hover:cursor-pointer'>Home</Link>
         </div>}
     </header>
   )
