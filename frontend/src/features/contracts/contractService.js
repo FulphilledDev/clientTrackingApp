@@ -28,9 +28,24 @@ const getContracts = async (token) => {
     return response.data
 }
 
+// Get user contract
+const getContract = async (contractId, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    const response = await axios.get(API_URL + contractId, config)
+
+    return response.data
+}
+
+
 const contractService = {
     createContract,
-    getContracts
+    getContracts,
+
 }
 
 export default contractService

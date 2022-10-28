@@ -1,21 +1,33 @@
-import { Link }  from 'react-router-dom'
+import { useState } from 'react';
+import Contract from './Contract'
 
 function ContractItem({contract}) {
+  const [ toggleView, setToggleView ] = useState('closed')
 
+  const onToggle = () => {
+        if(toggleView === 'closed') {
+            setToggleView('open')
+        } else {
+            setToggleView('closed')
+        }
+    }
   
     
   return (
     <div className="contract-item">
       <div className="grid-container">
         <div className='grid-item'>{new Date(contract.createdAt).toLocaleString('en-us')}</div>
-        <div className='grid-item'>{contract.users.recipient}</div>
-        <div className='grid-item'>{contract.length}</div>
+        <div className='grid-item'>{contract.users.receiver}</div>
+        <div className='grid-item'>{contract.details.length}</div>
         <div className={`status status-${contract.status} grid-item`}>
             {contract.status}
         </div>
-        <Link to={`/contract/${contract._id}`} className='btn btn-reverse btn-sm'> 
+        <button onClick={onToggle} className='btn btn-reverse btn-sm'> 
             View
-        </Link>
+        </button>
+      </div>
+      <div>
+          { toggleView === 'open' && <Contract contract={contract}/>}
       </div>
     </div>
   )

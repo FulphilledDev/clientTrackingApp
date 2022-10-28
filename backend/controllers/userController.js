@@ -10,6 +10,7 @@ const User = require('../models/userModel')
 const register = asyncHandler( async (req, res) => {
     const { firstName, lastName, email, password } = (req.body)
 
+    // const lowerCaseEmail = email.toLowerCase()
     // Validation
     if (!firstName || !lastName || !email || !password) {
         res.status(400)
