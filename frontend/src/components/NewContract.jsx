@@ -37,7 +37,7 @@ function NewContract() {
     }
 
     
-  }, [ isError, isSuccess, message, contract, navigate, useDispatch])
+  }, [ isError, isSuccess, message, contract, navigate, dispatch])
 
   const onSubmit = (e) => {
     e.preventDefault()

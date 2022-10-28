@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getContracts, reset } from '../features/contracts/contractSlice'
-import { toast } from 'react-toastify'
 import Spinner from './Spinner'
 import ContractItem from './ContractItem'
 
