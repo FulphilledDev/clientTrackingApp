@@ -5,8 +5,7 @@ import { FaFolderOpen } from 'react-icons/fa';
 import Spinner from './Spinner'
 import ContractItem from './ContractItem'
 
-const Contracts = () => {
-  const { contracts, isLoading, isSuccess } = useSelector((state) => state.contract)
+const Contracts = ({contracts, contract, isLoading, isSuccess, setCurrentContract}) => {
 
   const dispatch = useDispatch()
 
@@ -36,7 +35,11 @@ const Contracts = () => {
         </h1>
         <div className='overflow-auto border rounded-md px-2 py-2'>
           {contracts.map((contract) => (
-          <ContractItem key={contract._id} contract={contract}/>
+          <ContractItem 
+            key={contract._id} 
+            contract={contract} 
+            setCurrentContract={setCurrentContract}
+          />
         ))}
         </div>
         
