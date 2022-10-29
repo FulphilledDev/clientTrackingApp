@@ -21,6 +21,7 @@ function ContractItem({contract, setCurrentContract}) {
        currentContractId === contractId ? (
         <div 
           onClick={() => {
+            setCurrentContract(contract)
             setCurrentContractId(contractId)
           }
           }
