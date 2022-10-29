@@ -164,6 +164,45 @@ function Contract({contract, isLoading, isError}) {
               />
             </div>
             <div className="col-span-6">
+            <label className="inline-block text-sm font-medium text-gray-700">
+                Current Status
+            </label>
+            <div className=''>
+            {contract.status === 'pending' ?
+                <button
+                  className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2 "
+                >
+                  Pending
+                </button>
+              : null}
+            {contract.status === 'approve' ?
+                <button
+                  className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+                >
+                  Active
+                </button>
+              : null}
+            
+            {contract.status === 'deny' ?
+                <button
+                  className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+                >
+                  Denied
+                </button>
+              : null}
+            {contract.status === 'terminate' ?
+                <button
+                    className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+                  >
+                    Terminated
+                  </button>
+              : null}
+            </div>
+        </div>
+            
+          </div>
+
+        <div className="col-span-6">
               <label className="block text-sm font-medium text-gray-700">
                 Update Contract Status
               </label>
@@ -203,40 +242,9 @@ function Contract({contract, isLoading, isError}) {
                 </button>
               </div>
             </div>
-          </div>
         </div>
         
-        <div className='flex justify-end bottom'>
-          {contract.status === 'pending' ?
-              <button
-                className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
-              >
-                Pending
-              </button>
-            : null}
-          {contract.status === 'approve' ?
-              <button
-                className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
-              >
-                Active
-              </button>
-            : null}
-          
-          {contract.status === 'deny' ?
-              <button
-                className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
-              >
-                Denied
-              </button>
-            : null}
-          {contract.status === 'terminate' ?
-              <button
-                  className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
-                >
-                  Terminated
-                </button>
-            : null}
-        </div>
+        
       </div>
     </form>
     </>
