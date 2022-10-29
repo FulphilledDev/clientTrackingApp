@@ -42,14 +42,14 @@ const createContract = asyncHandler(async (req, res) => {
     }
 
 
-    const { receiver, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
+    const { receiver, completionDate, startDate, paymentInterval, paymentAmount, service } = req.body
 
     if( !receiver ) {
         res.status(400)
         throw new Error('Please add users')
     }
 
-    if( !completionDate || !startDate || !length ) {
+    if( !completionDate || !startDate ) {
         res.status(400)
         throw new Error('Please verify a start and completion date')
     }
@@ -87,8 +87,7 @@ const createContract = asyncHandler(async (req, res) => {
             completionDate: completionDate, 
             paymentInterval: paymentInterval, 
             paymentAmount: paymentAmount, 
-            service: service, 
-            length: length
+            service: service
         },
         status: 'pending'
     })
@@ -135,7 +134,7 @@ const updateContractDetails = asyncHandler(async (req, res) => {
         throw new Error('User not found')
     }
 
-    const { sentAt, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
+    const { completionDate, startDate, paymentInterval, paymentAmount, service } = req.body
 
     const contract = await Contract.findById(req.params.id)
 
@@ -156,13 +155,11 @@ const updateContractDetails = asyncHandler(async (req, res) => {
             receiver: contract.users.sender
         },
             "details": {
-            sentAt: sentAt, 
             startDate: startDate, 
             completionDate: completionDate, 
             paymentInterval: paymentInterval, 
             paymentAmount: paymentAmount, 
-            service: service, 
-            length: length
+            service: service
         },
         "status": 'pending'
     },{ new: true })
@@ -211,7 +208,7 @@ const approveContract = asyncHandler(async (req, res) => {
         throw new Error('User not found')
     }
 
-    const { sentAt, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
+    const { completionDate, startDate, paymentInterval, paymentAmount, service,  } = req.body
 
     // Check if contract already exists
     const contract = await Contract.findById(req.params.id)
@@ -234,13 +231,11 @@ const approveContract = asyncHandler(async (req, res) => {
             receiver: contract.users.sender
         },
             "details": {
-            sentAt: sentAt, 
             startDate: startDate, 
             completionDate: completionDate, 
             paymentInterval: paymentInterval, 
             paymentAmount: paymentAmount, 
             service: service, 
-            length: length
         },
         "status": 'approved'
     },
@@ -261,7 +256,7 @@ const denyContract = asyncHandler(async (req, res) => {
         throw new Error('User not found')
     }
 
-    const { sentAt, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
+    const { completionDate, startDate, paymentInterval, paymentAmount, service,  } = req.body
 
     // Check if contract and is denied
     const contract = await Contract.findById(req.params.id)
@@ -284,13 +279,11 @@ const denyContract = asyncHandler(async (req, res) => {
             receiver: contract.users.sender
         },
             "details": {
-            sentAt: sentAt, 
             startDate: startDate, 
             completionDate: completionDate, 
             paymentInterval: paymentInterval, 
             paymentAmount: paymentAmount, 
             service: service, 
-            length: length
         },
         "status": 'denied'},
         { new: true })

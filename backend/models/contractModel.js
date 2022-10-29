@@ -15,9 +15,6 @@ const contractSchema = mongoose.Schema({
             required: true,
     }},
     details: {
-        sentAt: {
-            type: Date
-        },
         service: {
             type: String,
             required: [true, 'Please select a service'],

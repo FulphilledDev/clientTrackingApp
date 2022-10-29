@@ -90,11 +90,11 @@ export const denyContract = createAsyncThunk('contracts/deny', async (contractId
     }
 })
 
-// Terminate Contract
-export const terminateContract = createAsyncThunk('contracts/terminate', async (contractId, thunkAPI) => {
+// Modify Contract
+export const modifyContract = createAsyncThunk('contracts/modify', async (contractId, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await contractService.terminateContract(contractId, token)
+        return await contractService.modifyContract(contractId, token)
     } catch (error) {
         const message = (error.response 
             && error.response.data 

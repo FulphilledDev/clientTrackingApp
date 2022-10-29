@@ -13,8 +13,6 @@ function NewContract() {
 
   const [ receiver, setReceiver ] = useState('')
   const [ service, setService ] = useState('Nutrition Coaching')
-  const [ lengthNumber, setLengthNumber ] = useState(Number)
-  const [ lengthMeasurement, setLengthMeasurement] = useState('Months')
   const [ startDate, setStartDate ] = useState('')
   const [ completionDate, setCompletionDate ] = useState('')
   const [ paymentInterval, setPaymentInterval ] = useState('Monthly')
@@ -48,7 +46,6 @@ function NewContract() {
         service, 
         startDate, 
         completionDate, 
-        length: lengthNumber,
         paymentInterval, 
         paymentAmount, 
       }
@@ -56,8 +53,6 @@ function NewContract() {
 
     setReceiver('')
     setService('Nutrition Coaching')
-    setLengthNumber(0)
-    setLengthMeasurement('Months')
     setStartDate('')
     setCompletionDate('')
     setPaymentInterval('Monthly')
