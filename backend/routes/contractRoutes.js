@@ -4,7 +4,7 @@ const {
     getContracts,
     getContract,
     createContract,
-    updateContractDetails,
+    modifyContractDetails,
     deleteContract,
     approveContract,
     denyContract
@@ -17,7 +17,7 @@ router.route('/')
 router.route('/:id')
     .get(protect, getContract)
     .delete(protect, deleteContract)
-    .put(protect, updateContractDetails)
+    .put(protect, modifyContractDetails)
 router.route('/:id/approve')
     .put(protect, approveContract)
 router.route('/:id/deny')

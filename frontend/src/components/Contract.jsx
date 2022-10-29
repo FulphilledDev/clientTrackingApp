@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { modifyContract } from '../features/contracts/contractSlice'
-import Spinner from './Spinner'
 import Moment from 'react-moment'
 
 
-function Contract({contract, modifyContract, isLoading, isError}) {
+function Contract({contract}) {
   const [ newStatus, setNewStatus ] = useState('')
   const [ editMode, setEditMode ] = useState(false)
 
@@ -21,28 +20,20 @@ function Contract({contract, modifyContract, isLoading, isError}) {
 
   const { user } = useSelector((state) => state.auth)
 
-  const onSubmit = (e) => {
+  const onModifySubmit = (e) => {
     e.preventDefault()
 
     dispatch(modifyContract(
       {
-        receiver,
-        service, 
-        startDate, 
-        completionDate, 
-        paymentInterval, 
-        paymentAmount,
-        status: newStatus, 
+        id: contract._id,
+        receiver: receiver,
+        service: service, 
+        startDate: startDate, 
+        completionDate: completionDate, 
+        paymentInterval: paymentInterval, 
+        paymentAmount: paymentAmount
       }
     ))
-  }
-
-  if(isLoading) {
-    return <Spinner />
-  }
-
-  if(isError) {
-    return <h3>Something didn't go right</h3>
   }
 
   return ( 
@@ -339,10 +330,7 @@ function Contract({contract, modifyContract, isLoading, isError}) {
           <div>
             <button
               type="submit"
-              name="status"
-              id="status"
-              value={newStatus}
-              onSubmit={onSubmit}
+              onSubmit={onModifySubmit}
               className="group relative flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 mt-5"
             >
               Request Modifications

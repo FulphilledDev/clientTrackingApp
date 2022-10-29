@@ -5,18 +5,18 @@ import { FaFolderOpen } from 'react-icons/fa';
 import Spinner from './Spinner'
 import ContractItem from './ContractItem'
 
-const Contracts = ({contracts, contract, isLoading, isSuccess, currentContract, setCurrentContract}) => {
+const Contracts = ({contracts, isLoading, isSuccess, currentContract, setCurrentContract}) => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    return(()=> {
-        if(isSuccess) {
-          dispatch(reset())
-        }
-    })
-  }, [dispatch, isSuccess])
+  //   return(()=> {
+  //       if(isSuccess) {
+  //         dispatch(reset())
+  //       }
+  //   })
+  // }, [dispatch, isSuccess])
 
   useEffect(()=> {
     dispatch(getContracts())
@@ -35,13 +35,13 @@ const Contracts = ({contracts, contract, isLoading, isSuccess, currentContract, 
                     <FaFolderOpen /> Contracts
           </div>
           {contracts.map((contract) => (
-          <ContractItem 
-            key={contract._id} 
-            contract={contract} 
-            currentContract={currentContract}
-            setCurrentContract={setCurrentContract}
-          />
-        ))}
+            <ContractItem 
+              key={contract._id} 
+              contract={contract} 
+              currentContract={currentContract}
+              setCurrentContract={setCurrentContract}
+            />
+          ))}
         </div>
         
         </div>
