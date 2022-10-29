@@ -31,9 +31,6 @@ const contractSchema = mongoose.Schema({
             type: Date,
             required: true,
         },
-        length: {
-            type: Number,
-        },
         paymentInterval: {
             type: String,
             required: true,

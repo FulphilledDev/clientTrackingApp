@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 
-function ContractItem({contract, setCurrentContract}) {
+function ContractItem({contract, currentContract, setCurrentContract}) {
   const { user } = useSelector((state) => state.auth)
   
-  const currentContract = useSelector((state) => state.contract.contract)
   const [currentContractId, setCurrentContractId] = useState('')
 
   const contractId = contract._id

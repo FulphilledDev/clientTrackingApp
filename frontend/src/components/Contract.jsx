@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-// import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 // import { useParams } from 'react-router-dom'
 // import { toast } from 'react-toastify'
 // import { getContract, reset } from '../features/contracts/contractSlice'
@@ -8,6 +8,8 @@ import Spinner from './Spinner'
 
 function Contract({contract, isLoading, isError}) {
   const [ newStatus, setNewStatus ] = useState('')
+
+  const { user } = useSelector((state) => state.auth)
 
   if(isLoading) {
     return <Spinner />
@@ -59,19 +61,16 @@ function Contract({contract, isLoading, isError}) {
             <div className="col-span-3">
               <label className="block text-sm font-medium text-gray-700">
                 Email
-                {/* 
-                  {contract.users.receiver === user.email ? (
-                    <>{contract.users.sender}</>
-                  ) : (
-                    <>{contract.users.receiver}</>
-                  )} 
-                */}
               </label>
               <input
                 type="email"
                 name="email-address"
                 id="email-address"
-                value={contract.users.receiver}
+                value={contract.users.receiver === user.email ? (
+                    <>{contract.users.sender}</>
+                  ) : (
+                    <>{contract.users.receiver}</>
+                  )} 
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>

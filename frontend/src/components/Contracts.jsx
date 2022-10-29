@@ -5,7 +5,7 @@ import { FaFolderOpen } from 'react-icons/fa';
 import Spinner from './Spinner'
 import ContractItem from './ContractItem'
 
-const Contracts = ({contracts, contract, isLoading, isSuccess, setCurrentContract}) => {
+const Contracts = ({contracts, contract, isLoading, isSuccess, currentContract, setCurrentContract}) => {
 
   const dispatch = useDispatch()
 
@@ -38,6 +38,7 @@ const Contracts = ({contracts, contract, isLoading, isSuccess, setCurrentContrac
           <ContractItem 
             key={contract._id} 
             contract={contract} 
+            currentContract={currentContract}
             setCurrentContract={setCurrentContract}
           />
         ))}

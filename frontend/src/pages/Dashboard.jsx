@@ -42,6 +42,7 @@ function Dashboard() {
                     contract={contract}
                     isLoading={isLoading}
                     isSuccess={isSuccess}
+                    currentContract={currentContract}
                     setCurrentContract={setCurrentContract}
                 />
             </div>
