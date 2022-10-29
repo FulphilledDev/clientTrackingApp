@@ -28,7 +28,7 @@ function Home() {
             <h1 className='mt-6 text-center text-4xl font-bold tracking-tight text-zinc-900'>Hello and Welcome!</h1>
             <p className='mt-2 text-center text-md text-gray-600'>We look forward to working with you!</p>
         </section>
-        <section className='items-center justify-center gap-5 md:flex md:flex-1 lg:w-0 py-6 px-6'>
+        <section className='flex max-h-auto items-center justify-center py-4 px-4 sm:px-6 lg:px-8 gap-5'>
             <button onClick={onToggleLogin} className='inline-flex gap-1 items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-700 hover:cursor-pointer'>
                 <FaSignInAlt /> Sign-In
             </button>

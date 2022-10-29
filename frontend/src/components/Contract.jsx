@@ -114,7 +114,7 @@ function Contract({contract, isLoading, isError}) {
               />
             </div>
 
-            <div className="col-span-3">
+            <div className="col-span-6 sm:col-span-3 lg:col-span-2">
               <label className="block text-sm font-medium text-gray-700">
                 Length
               </label>
@@ -126,7 +126,7 @@ function Contract({contract, isLoading, isError}) {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>
-            <div className="col-span-3">
+            <div className="col-span-6 sm:col-span-3 lg:col-span-2">
               <label className="block text-sm font-medium text-gray-700">
                 Time Left
               </label>

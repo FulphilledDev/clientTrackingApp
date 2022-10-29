@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
-import { FaPenAlt } from 'react-icons/fa';
+import { FaPenAlt, FaFolderOpen } from 'react-icons/fa';
 import NewContract from '../components/NewContract';
 import Contracts from '../components/Contracts';
 import Contract from '../components/Contract';
@@ -37,6 +37,9 @@ function Dashboard() {
                     className='group relative flex w-full justify-center items-center rounded-md border border-transparent bg-cyan-700 py-2 px-4 text-sm font-medium text-white hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 gap-2'>
                     <FaPenAlt /><span>New Contract</span>
                 </button>
+                <h1 className='group relative flex w-full justify-center items-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 gap-2'>
+                    <FaFolderOpen /> Contracts
+                </h1>
                 <Contracts 
                     contracts={contracts}
                     contract={contract}
@@ -55,7 +58,7 @@ function Dashboard() {
                     <Contract key={currentContract._id} contract={currentContract}/>
                 </div>
             )}
-        </div>
+            </div>
         </section>
         
     </>
