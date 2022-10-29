@@ -1,14 +1,13 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { getContract, reset } from '../features/contracts/contractSlice'
+import { useEffect, useState } from 'react'
+// import { useSelector, useDispatch } from 'react-redux'
+// import { useParams } from 'react-router-dom'
+// import { toast } from 'react-toastify'
+// import { getContract, reset } from '../features/contracts/contractSlice'
 import Spinner from './Spinner'
 
 
 function Contract({contract, isLoading, isError}) {
-
-
+  const [ newStatus, setNewStatus ] = useState('')
 
   if(isLoading) {
     return <Spinner />
@@ -22,7 +21,8 @@ function Contract({contract, isLoading, isError}) {
     <>
     <div className="hidden sm:block" aria-hidden="true">
       <div className="py-5 px-5">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">Contract Information: {contract._id}</h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-900">
+          Contract Information: {contract._id}</h3>
         <div className="border-t border-gray-200" />
       </div>
     </div>
@@ -163,49 +163,80 @@ function Contract({contract, isLoading, isError}) {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
               />
             </div>
+            <div className="col-span-6">
+              <label className="block text-sm font-medium text-gray-700">
+                Update Contract Status
+              </label>
+              <div
+                type="text"
+                className="mt-1 flex justify-around w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
+              >
+                <button
+                type="submit"
+                name="status"
+                id="status"
+                value={newStatus}
+                onChange={(e) => setNewStatus(e.target.value)}
+                className="justify-center rounded-md border border-transparent bg-green-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
+                >
+                Approve
+                </button>
+                <button
+                  type="submit"
+                  name="status"
+                  id="status"
+                  value={newStatus}
+                  onChange={(e) => setNewStatus(e.target.value)}
+                  className="justify-center rounded-md border border-transparent bg-red-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+                >
+                  Deny
+                </button>
+                <button
+                  type="submit"
+                  name="status"
+                  id="status"
+                  value={newStatus}
+                  onChange={(e) => setNewStatus(e.target.value)}
+                  className="justify-center rounded-md border border-transparent bg-gray-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2"
+                >
+                  Terminate
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-        {contract.status === 'pending' ?
-          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-            <button
-              type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
-            >
-              Pending
-            </button>
-          </div> 
-          : null}
-        {contract.status === 'approved' ?
-          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-            <button
-              type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-green-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
-            >
-              Active
-            </button>
-          </div> 
-          : null}
         
-        {contract.status === 'denied' ?
-          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-            <button
-              type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-red-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
-            >
-              Denied
-            </button>
-          </div> 
-          : null}
-        {contract.status === 'inactive' ?
-          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-            <button
-              type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-slate-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:ring-offset-2"
-            >
-              Inactive
-            </button>
-          </div> 
-          : null}
+        <div className='flex justify-end bottom'>
+          {contract.status === 'pending' ?
+              <button
+                className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+              >
+                Pending
+              </button>
+            : null}
+          {contract.status === 'approve' ?
+              <button
+                className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+              >
+                Active
+              </button>
+            : null}
+          
+          {contract.status === 'deny' ?
+              <button
+                className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+              >
+                Denied
+              </button>
+            : null}
+          {contract.status === 'terminate' ?
+              <button
+                  className="flex justify-center rounded-md border border-transparent bg-yellow-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2"
+                >
+                  Terminated
+                </button>
+            : null}
+        </div>
       </div>
     </form>
     </>

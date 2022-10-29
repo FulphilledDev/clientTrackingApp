@@ -58,6 +58,56 @@ export const getContract = createAsyncThunk('contracts/get', async (contractId, 
     }
 })
 
+// Approve Contract
+export const approveContract = createAsyncThunk('contracts/approve', async (contractId, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token
+        return await contractService.approveContract(contractId, token)
+    } catch (error) {
+        const message = (error.response 
+            && error.response.data 
+            && error.response.data.message) 
+            || error.message
+            || error.toString()
+
+            return thunkAPI.rejectWithValue(message)
+    }
+})
+
+// Deny Contract
+export const denyContract = createAsyncThunk('contracts/deny', async (contractId, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token
+        return await contractService.denyContract(contractId, token)
+    } catch (error) {
+        const message = (error.response 
+            && error.response.data 
+            && error.response.data.message) 
+            || error.message
+            || error.toString()
+
+            return thunkAPI.rejectWithValue(message)
+    }
+})
+
+// Terminate Contract
+export const terminateContract = createAsyncThunk('contracts/terminate', async (contractId, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token
+        return await contractService.terminateContract(contractId, token)
+    } catch (error) {
+        const message = (error.response 
+            && error.response.data 
+            && error.response.data.message) 
+            || error.message
+            || error.toString()
+
+            return thunkAPI.rejectWithValue(message)
+    }
+})
+
+
+
 export const contractSlice = createSlice ({
     name: 'contract',
     initialState,
