@@ -43,7 +43,6 @@ const createContract = asyncHandler(async (req, res) => {
 
 
     const { receiver, completionDate, startDate, paymentInterval, paymentAmount, service, length } = req.body
-    // 
 
     if( !receiver ) {
         res.status(400)

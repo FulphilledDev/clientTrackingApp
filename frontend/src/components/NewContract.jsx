@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { createContract, reset } from '../features/contracts/contractSlice'
 import Spinner from './Spinner'
+// import Moment from 'react-moment'
+// import 'moment-timezone'
 
 function NewContract() {
   const { user } = useSelector((state) => state.auth)
@@ -11,11 +13,45 @@ function NewContract() {
 
   const [ receiver, setReceiver ] = useState('')
   const [ service, setService ] = useState('Nutrition Coaching')
-  const [ length, setLength ] = useState(Number)
+  const [ lengthNumber, setLengthNumber ] = useState(Number)
+  const [ lengthMeasurement, setLengthMeasurement] = useState('Months')
   const [ startDate, setStartDate ] = useState('')
   const [ completionDate, setCompletionDate ] = useState('')
   const [ paymentInterval, setPaymentInterval ] = useState('Monthly')
   const [ paymentAmount, setPaymentAmount ] = useState(Number)
+
+  // // Creating Length and Measurement Conditions for difference in startDate & completionDate
+  // // Step 1: Get the msDiff between two dates
+  // // Equation: Completion Date - Start Date
+  // const msDiff = completionDate - startDate
+
+  // // Step 2: Convert msDiff into weeks, months, years
+  // // EquationDay: 24*60*60*1000
+  // // EquationWeek: msDiff > 7*EquationDay
+  // // EquationMonth: msDiff > 29*EquationDay
+  // // EquationYear: msDiff > 365*EquationDay
+  // const updatedDiff = (msDiff) => {
+  //   const d = 24*60*60*1000
+  //   const w = 7*d
+  //   const m = 29*d
+  //   const y = 365*d
+
+  //   if (msDiff > y) {
+  //     return `${Math.floor(msDiff / y)} Years`
+  //   } else if (msDiff > m && msDiff < y) {
+  //     return `${Math.floor(msDiff / m)} Months`
+  //   } else if (msDiff > d && msDiff < y ) {
+  //     return `${Math.floor(msDiff / w)} Weeks`
+  //   } else {
+  //     return `${Math.floor(msDiff / d)} Days`
+  //   }
+  // }
+
+  // // Step 3: Set Conditional for lengthNumber and lengthMeasurement
+  // lengthNumber = (updatedDiff) => { updatedDiff.charAt(0) }
+  // lengthMeasurement = (updatedDiff) => { updatedDiff.slice(1) }
+ 
+  // // Step 4: Assign variables to appropriate contract values
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -43,9 +79,9 @@ function NewContract() {
       {
         receiver,
         service, 
-        startDate,
-        length, 
+        startDate, 
         completionDate, 
+        length: lengthNumber,
         paymentInterval, 
         paymentAmount, 
       }
@@ -53,7 +89,8 @@ function NewContract() {
 
     setReceiver('')
     setService('Nutrition Coaching')
-    setLength(0)
+    setLengthNumber(0)
+    setLengthMeasurement('Months')
     setStartDate('')
     setCompletionDate('')
     setPaymentInterval('Monthly')
@@ -71,15 +108,14 @@ function NewContract() {
       <div className='w-full max-w-md space-y-1'>
         <p className='mt-6 text-center text-2xl font-bold tracking-tight text-gray-800'>Please fill out the form below</p>
         <form onSubmit={onSubmit} className='mt-8 space-y-6'>
-        <div>
-          <label htmlFor="sender">Contractor Email</label>
-          <input 
-            className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm" 
-            type='email' 
-            value={user.email} 
-            disabled/>
-        </div>
-        
+          <div>
+            <label htmlFor="sender">Contractor Email</label>
+            <input 
+              className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm" 
+              type='email' 
+              value={user.email} 
+              disabled/>
+          </div>
           <div>
             <label htmlFor="receiver">Recipient Email</label>
             <input 
@@ -121,7 +157,7 @@ function NewContract() {
               onChange={(e) => setStartDate(e.target.value)}/>
           </div>
           <div>
-            <label htmlFor="completionDate">Completion Date</label>
+            <label>Completion Date</label>
             <input 
               className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm" 
               type='date' 
@@ -129,16 +165,33 @@ function NewContract() {
               onChange={(e) => setCompletionDate(e.target.value)}/>
           </div>
           <div>
-            <label htmlFor="length">Length of Contract (Months)</label>
-            <input 
-              className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm" 
-              type='number' 
-              value={length}
-              onChange={(e) => setLength(e.target.value)}
-              />
+            <label htmlFor="length" className='block'>Length of Contract</label>
+            <div className='flex gap-3'>
+              <div>
+                <input 
+                  className="relative appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm" 
+                  type='number'
+                  min='0'
+                  max='12' 
+                  value={lengthNumber}
+                  onChange={(e) => setLengthNumber(e.target.value)}
+                  disabled
+                  />
+              </div>
+              <div>
+                <label htmlFor="length"></label>
+                <input 
+                  className="relative appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+                  type='text' 
+                  name='lengthMeasurement' 
+                  value={lengthMeasurement}
+                  onChange={(e) => setLengthMeasurement(e.target.value)}
+                  disabled/>
+              </div>
+            </div>
           </div>
           <div>
-            <label htmlFor="paymentAmount">Payment Amount (USD)</label>
+            <label>Payment Amount (USD)</label>
             <input 
               className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm" 
               type='number' 
@@ -147,7 +200,7 @@ function NewContract() {
               />
           </div>
           <div >
-            <label htmlFor="receiver">Payment Interval</label>
+            <label>Payment Interval</label>
             <select 
             className='relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm'
               name="paymentInterval" 
