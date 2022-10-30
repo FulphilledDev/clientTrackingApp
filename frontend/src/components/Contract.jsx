@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { modifyContract, approveContract, denyContract } from '../features/contracts/contractSlice'
 import Moment from 'react-moment'
@@ -14,9 +15,9 @@ function Contract({contract}) {
   const [ completionDate, setCompletionDate ] = useState(contract.details.completionDate)
   const [ paymentInterval, setPaymentInterval ] = useState(contract.details.paymentInterval)
   const [ paymentAmount, setPaymentAmount ] = useState(contract.details.paymentAmount)
-  const [ contractStatus, setContractStatus ] = useState(contract.status)
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const { user } = useSelector((state) => state.auth)
 
@@ -27,38 +28,28 @@ function Contract({contract}) {
 
   // Approve Contract Submission
   const onApproveContract = (e) => {
-    e.preventDefault()
-    
-    dispatch(approveContract(
-      {
-        id: contract._id,
-        receiver: receiver,
-        service: service, 
-        startDate: startDate, 
-        completionDate: completionDate, 
-        paymentInterval: paymentInterval, 
-        paymentAmount: paymentAmount,
-        status: contractStatus
-      }
-    ))
+      if(window.confirm('Approve Contract?')) {
+        dispatch(approveContract(
+        {
+          id: contract._id,
+          status: "approve"
+        }
+      ))
+    }
+    navigate('/dashboard')
   }
 
   // Deny Contract Submission
   const onDenyContract = (e) => {
-    e.preventDefault()
-
-    dispatch(denyContract(
-      {
-        id: contract._id,
-        receiver: receiver,
-        service: service, 
-        startDate: startDate, 
-        completionDate: completionDate, 
-        paymentInterval: paymentInterval, 
-        paymentAmount: paymentAmount,
-        status: contractStatus
+      if(window.confirm('Deny Contract?')) {
+        dispatch(denyContract(
+          {
+            id: contract._id,
+            status: "deny"
+          }
+        ))
       }
-    ))
+    navigate('/dashboard')
   }
 
 
@@ -90,8 +81,7 @@ function Contract({contract}) {
         <div className="border-t border-gray-200" />
       </div>
     </div>
-    <form 
-      onSubmit={contractStatus === 'approve' ? onApproveContract : onDenyContract}
+    <section 
       className="flex min-h-full items-start justify-center py-4 px-4 sm:px-6 lg:px-8">
         <div className="shadow sm:rounded-md">
           <div className="bg-white px-4 py-5 sm:p-6">
@@ -198,19 +188,13 @@ function Contract({contract}) {
                 <div className="block flex justify-around w-full mt-1 focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm gap-5"
                 >
                   <button
-                    name="contractStatus"
-                    id="contractStatus"
-                    value={contractStatus}
-                    onClick={() => setContractStatus('approve')}
+                    onClick={onApproveContract}
                     className="mt-1 block w-full sm:text-sm text-green-700 font-extrabold"
                   >
                     Approve
                   </button>
                   <button
-                    name="contractStatus"
-                    id="contractStatus"
-                    value={contractStatus}
-                    onClick={() => setContractStatus('deny')}
+                    onClick={onDenyContract}
                     className="mt-1 block w-full sm:text-sm text-red-700 font-extrabold"
                   >
                     Deny
@@ -228,7 +212,7 @@ function Contract({contract}) {
             </div>
           </div>
         </div>
-      </form>
+      </section>
     </>
     ) : (
       ///////////////////////////////

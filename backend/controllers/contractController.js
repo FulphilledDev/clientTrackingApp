@@ -192,7 +192,7 @@ const approveContract = asyncHandler(async (req, res) => {
         throw new Error('User not found')
     }
 
-    const { receiver, completionDate, startDate, paymentInterval, paymentAmount, service, status } = req.body
+    const { status } = req.body
 
     // Check if contract already exists
     const contract = await Contract.findById(req.params.id)
@@ -204,25 +204,18 @@ const approveContract = asyncHandler(async (req, res) => {
 
     // Verifying authorization by email or user
     // Whoever received this contract === users.sender : 'Not Authorized to approve'
-    if (!contract.users.includes(req.user.email)) {
+    const authArray = [contract.users.receiver, contract.users.sender]
+
+    // Verifying authorization by email or user
+    if (!authArray.includes(req.user.email)) {
         res.status(401)
-        throw new Error('Not authorized to approve')
+        throw new Error('Not Authorized')
     }
 
     const approvedContract = await Contract.findByIdAndUpdate(req.params.id, 
-        {"users" : {
-            sender: req.user.email,
-            receiver: receiver,
+        {
+            status: status
         },
-            "details": {
-            startDate: startDate, 
-            completionDate: completionDate, 
-            paymentInterval: paymentInterval, 
-            paymentAmount: paymentAmount, 
-            service: service
-        },
-        status: status
-    },
     // This shows changes made IMMEDIATELY
     { new: true })
 
@@ -251,6 +244,8 @@ const denyContract = asyncHandler(async (req, res) => {
         throw new Error('User not found')
     }
 
+    const { status } = req.body
+
     // Check if contract and is denied
     const contract = await Contract.findById(req.params.id)
 
@@ -261,16 +256,29 @@ const denyContract = asyncHandler(async (req, res) => {
 
     // Verifying authorization by email or user
     // Whoever received this contract === user.receiver : 'Not Authorized to deny'
-    if (contract.users.receiver !== req.user.email) {
+    const authArray = [contract.users.receiver, contract.users.sender]
+
+    // Verifying authorization by email or user
+    if (!authArray.includes(req.user.email)) {
         res.status(401)
-        throw new Error('Not authrized to deny')
+        throw new Error('Not Authorized')
     }
 
     const deniedContract = await Contract.findByIdAndUpdate(req.params.id, 
-        { "status": 'denied'},
+        { 
+            status: status
+        },
         { new: true })
 
-    res.status(200).json(deniedContract)
+    const contracts = await Contract.find({
+        $or: [
+            {"users.sender": req.user.email},
+            {"users.receiver": req.user.email}
+        ]
+    }).sort({'updatedAt': -1})
+
+
+    res.status(200).json(contracts)
 })
 
 // @desc    Delete Contracts

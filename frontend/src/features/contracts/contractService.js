@@ -53,8 +53,7 @@ const modifyContract = async (contractData, token) => {
 // Approve contract
 const approveContract = async (contractData, token) => {
     const  approvedContract = {
-        ...contractData,
-        // status: contractData.status
+        status: contractData.status
     }
 
     const config = {
@@ -63,7 +62,7 @@ const approveContract = async (contractData, token) => {
         }
     }
 
-    const response = await axios.put(API_URL + contractData.id, approvedContract, config)
+    const response = await axios.put(API_URL + contractData.id + '/approve', approvedContract, config)
 
     return response.data
 }
@@ -71,8 +70,7 @@ const approveContract = async (contractData, token) => {
 // Deny contract
 const denyContract = async (contractData, token) => {
     const  deniedContract = {
-        ...contractData,
-        // status: contractData.status
+        status: contractData.status
     }
 
     const config = {
@@ -81,7 +79,7 @@ const denyContract = async (contractData, token) => {
         }
     }
 
-    const response = await axios.put(API_URL + contractData.id, deniedContract, config)
+    const response = await axios.put(API_URL + contractData.id + '/deny', deniedContract, config)
 
     return response.data
 }
