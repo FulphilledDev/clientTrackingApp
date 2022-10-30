@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { modifyContract } from '../features/contracts/contractSlice'
+import { modifyContract, approveContract, denyContract } from '../features/contracts/contractSlice'
 import Moment from 'react-moment'
 
 
 function Contract({contract}) {
-  const [ newStatus, setNewStatus ] = useState('')
   const [ editMode, setEditMode ] = useState(false)
 
   // For modifying contract, this populates current information into respective fields
@@ -15,14 +14,55 @@ function Contract({contract}) {
   const [ completionDate, setCompletionDate ] = useState(contract.details.completionDate)
   const [ paymentInterval, setPaymentInterval ] = useState(contract.details.paymentInterval)
   const [ paymentAmount, setPaymentAmount ] = useState(contract.details.paymentAmount)
+  const [ contractStatus, setContractStatus ]  = useState(contract.status)
 
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.auth)
 
+
+  // For Moment display in UI
   const dateNow = Date.now()
   const filterIn = (d) => d.slice(2)
 
+  // Approve Contract Submission
+  const onApproveContract = (e) => {
+    e.preventDefault()
+
+    dispatch(approveContract(
+      {
+        id: contract._id,
+        receiver: receiver,
+        service: service, 
+        startDate: startDate, 
+        completionDate: completionDate, 
+        paymentInterval: paymentInterval, 
+        paymentAmount: paymentAmount,
+        status: contractStatus
+      }
+    ))
+  }
+
+  // Deny Contract Submission
+  const onDenyContract = (e) => {
+    e.preventDefault()
+
+    dispatch(denyContract(
+      {
+        id: contract._id,
+        receiver: receiver,
+        service: service, 
+        startDate: startDate, 
+        completionDate: completionDate, 
+        paymentInterval: paymentInterval, 
+        paymentAmount: paymentAmount,
+        status: contractStatus
+      }
+    ))
+  }
+
+
+  // Modify Contract Submission
   const onModifySubmit = (e) => {
     e.preventDefault()
 
@@ -50,8 +90,10 @@ function Contract({contract}) {
         <div className="border-t border-gray-200" />
       </div>
     </div>
-    <form className="flex min-h-full items-start justify-center py-4 px-4 sm:px-6 lg:px-8">
-        <div className="overflow-hidden shadow sm:rounded-md">
+    <form 
+      onSubmit={onApproveContract}
+      className="flex min-h-full items-start justify-center py-4 px-4 sm:px-6 lg:px-8">
+        <div className="shadow sm:rounded-md">
           <div className="bg-white px-4 py-5 sm:p-6">
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-3">
@@ -83,7 +125,6 @@ function Contract({contract}) {
                         Active
                       </span>
                     : null}
-                  
                   {contract.status === 'deny' ?
                       <span
                         className="mt-1 block w-full focus:border-cyan-500 sm:text-sm text-red-700 font-extrabold"
@@ -154,26 +195,24 @@ function Contract({contract}) {
                 <label className="block text-sm font-medium text-gray-700">
                   Update Status
                 </label>
-                <div
-                  type="text"
-                  className="block flex justify-around w-full mt-1 focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm gap-5"
+                <div className="block flex justify-around w-full mt-1 focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm gap-5"
                 >
                   <button
                     type="submit"
-                    name="status"
-                    id="status"
-                    value={newStatus}
-                    onClick={(e) => setNewStatus(e.target.value)}
+                    name="contractStatus"
+                    id="contractStatus"
+                    value={contractStatus.toLowerCase()}
+                    onClick={(e) => setContractStatus(e.target.value)}
                     className="mt-1 block w-full sm:text-sm text-green-700 font-extrabold"
                   >
                     Approve
                   </button>
                   <button
                     type="submit"
-                    name="status"
-                    id="status"
-                    value={newStatus}
-                    onClick={(e) => setNewStatus(e.target.value)}
+                    name="contractStatus"
+                    id="contractStatus"
+                    value={contractStatus.toLowerCase()}
+                    onClick={(e) => setContractStatus(e.target.value)}
                     className="mt-1 block w-full sm:text-sm text-red-700 font-extrabold"
                   >
                     Deny
@@ -194,11 +233,11 @@ function Contract({contract}) {
       </form>
     </>
     ) : (
-      ///////////////////
+      ///////////////////////////////
       //
-      // MODIFY CONTRACT
+      // MODIFY CONTRACT in Edit Mode
       //
-      ///////////////////
+      ///////////////////////////////
       <>
     <div className="hidden sm:block" aria-hidden="true">
       <div className="py-5 px-5">
@@ -208,7 +247,7 @@ function Contract({contract}) {
       </div>
     </div>
     <form onSubmit={onModifySubmit} className="flex min-h-full items-start justify-center py-4 px-4 sm:px-6 lg:px-8">
-      <div className="overflow-hidden shadow sm:rounded-md">
+      <div className="shadow sm:rounded-md">
         <div className="bg-white px-4 py-5 sm:p-6">
           <div className="grid grid-cols-6 gap-6">
             <div className="col-span-3">

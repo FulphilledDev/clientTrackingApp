@@ -42,11 +42,27 @@ export const getContracts = createAsyncThunk('contracts/getAll', async (_, thunk
     }
 })
 
-// Approve Contract
-export const approveContract = createAsyncThunk('contracts/approve', async (contractId, thunkAPI) => {
+// Modify Contract
+export const modifyContract = createAsyncThunk('contracts/modify', async (contractData, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await contractService.approveContract(contractId, token)
+        return await contractService.modifyContract(contractData, token)
+    } catch (error) {
+        const message = (error.response 
+            && error.response.data 
+            && error.response.data.message) 
+            || error.message
+            || error.toString()
+
+            return thunkAPI.rejectWithValue(message)
+    }
+})
+
+// Approve Contract
+export const approveContract = createAsyncThunk('contracts/approve', async (contractData, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token
+        return await contractService.approveContract(contractData, token)
     } catch (error) {
         const message = (error.response 
             && error.response.data 
@@ -59,26 +75,10 @@ export const approveContract = createAsyncThunk('contracts/approve', async (cont
 })
 
 // Deny Contract
-export const denyContract = createAsyncThunk('contracts/deny', async (contractId, thunkAPI) => {
+export const denyContract = createAsyncThunk('contracts/deny', async (contractData, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await contractService.denyContract(contractId, token)
-    } catch (error) {
-        const message = (error.response 
-            && error.response.data 
-            && error.response.data.message) 
-            || error.message
-            || error.toString()
-
-            return thunkAPI.rejectWithValue(message)
-    }
-})
-
-// Modify Contract
-export const modifyContract = createAsyncThunk('contracts/modify', async (contractData, thunkAPI) => {
-    try {
-        const token = thunkAPI.getState().auth.user.token
-        return await contractService.modifyContract(contractData, token)
+        return await contractService.denyContract(contractData, token)
     } catch (error) {
         const message = (error.response 
             && error.response.data 
@@ -135,6 +135,32 @@ export const contractSlice = createSlice ({
                 state.contracts = action.payload
             })
             .addCase(modifyContract.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload
+            })
+            .addCase(approveContract.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(approveContract.fulfilled, (state,action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.contracts = action.payload
+            })
+            .addCase(approveContract.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload
+            })
+            .addCase(denyContract.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(denyContract.fulfilled, (state,action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.contracts = action.payload
+            })
+            .addCase(denyContract.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload

@@ -151,10 +151,6 @@ const modifyContract = asyncHandler(async (req, res) => {
         throw new Error('Not Authorized')
     }
 
-
-    console.log(req.body)
-
-
     const updatedContract = await Contract.findByIdAndUpdate(req.params.id, 
         {"users" : {
             sender: req.user.email,
@@ -182,6 +178,99 @@ const modifyContract = asyncHandler(async (req, res) => {
 
 
     res.status(200).json(contracts)
+})
+
+// @desc    Approve Contract
+// @route   PUT /api/contracts/:id/approve
+// @access  Private
+const approveContract = asyncHandler(async (req, res) => {
+    // Get user using the id in the JWT
+    const user = await User.findById(req.user.id)
+
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    const { receiver, completionDate, startDate, paymentInterval, paymentAmount, service, status } = req.body
+
+    // Check if contract already exists
+    const contract = await Contract.findById(req.params.id)
+
+    if(contract.status === 'approve') {
+        res.status(404)
+        throw new Error('Contract has already been approved')
+    }
+
+    // Verifying authorization by email or user
+    // Whoever received this contract === users.sender : 'Not Authorized to approve'
+    if (!contract.users.includes(req.user.email)) {
+        res.status(401)
+        throw new Error('Not authorized to approve')
+    }
+
+    const approvedContract = await Contract.findByIdAndUpdate(req.params.id, 
+        {"users" : {
+            sender: req.user.email,
+            receiver: receiver,
+        },
+            "details": {
+            startDate: startDate, 
+            completionDate: completionDate, 
+            paymentInterval: paymentInterval, 
+            paymentAmount: paymentAmount, 
+            service: service
+        },
+        status: status
+    },
+    // This shows changes made IMMEDIATELY
+    { new: true })
+
+    const contracts = await Contract.find({
+        $or: [
+            {"users.sender": req.user.email},
+            {"users.receiver": req.user.email}
+        ]
+    }).sort({'updatedAt': -1})
+
+    console.log(approvedContract)
+
+
+    res.status(200).json(contracts)
+})
+
+// @desc    Deny Contract
+// @route   PUT /api/contracts/:id/deny
+// @access  Private
+const denyContract = asyncHandler(async (req, res) => {
+    // Get user using the id in the JWT
+    const user = await User.findById(req.user.id)
+
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // Check if contract and is denied
+    const contract = await Contract.findById(req.params.id)
+
+    if(contract && contract.status === 'deny') {
+        res.status(404)
+        throw new Error('Contract has already been denied')
+    }
+
+    // Verifying authorization by email or user
+    // Whoever received this contract === user.receiver : 'Not Authorized to deny'
+    if (contract.users.receiver !== req.user.email) {
+        res.status(401)
+        throw new Error('Not authrized to deny')
+    }
+
+    const deniedContract = await Contract.findByIdAndUpdate(req.params.id, 
+        { "status": 'denied'},
+        { new: true })
+
+    res.status(200).json(deniedContract)
 })
 
 // @desc    Delete Contracts
@@ -213,82 +302,13 @@ const deleteContract = asyncHandler(async (req, res) => {
     res.status(200).json({deleted: true})
 })
 
-// @desc    Approve Contract
-// @route   PUT /api/contracts/:id/approve
-// @access  Private
-const approveContract = asyncHandler(async (req, res) => {
-    // Get user using the id in the JWT
-    const user = await User.findById(req.user.id)
-
-    if(!user) {
-        res.status(401)
-        throw new Error('User not found')
-    }
-
-    // Check if contract already exists
-    const contract = await Contract.findById(req.params.id)
-
-    if(contract.status === 'approved') {
-        res.status(404)
-        throw new Error('Contract has already been approved')
-    }
-
-    // Verifying authorization by email or user
-    // Whoever received this contract === user.receiver : 'Not Authorized to approve'
-    if (contract.users.receiver !== req.user.email) {
-        res.status(401)
-        throw new Error('Not authorized to approve')
-    }
-
-    const approvedContract = await Contract.findByIdAndUpdate(req.params.id,
-        { "status": 'approved' },
-    // This shows changes made IMMEDIATELY
-    { new: true })
-
-    res.status(200).json(approvedContract)
-})
-
-// @desc    Deny Contract
-// @route   PUT /api/contracts/:id/deny
-// @access  Private
-const denyContract = asyncHandler(async (req, res) => {
-    // Get user using the id in the JWT
-    const user = await User.findById(req.user.id)
-
-    if(!user) {
-        res.status(401)
-        throw new Error('User not found')
-    }
-
-    // Check if contract and is denied
-    const contract = await Contract.findById(req.params.id)
-
-    if(contract && contract.status === 'denied') {
-        res.status(404)
-        throw new Error('Contract has already been denied')
-    }
-
-    // Verifying authorization by email or user
-    // Whoever received this contract === user.receiver : 'Not Authorized to deny'
-    if (contract.users.receiver !== req.user.email) {
-        res.status(401)
-        throw new Error('Not authrized to deny')
-    }
-
-    const deniedContract = await Contract.findByIdAndUpdate(req.params.id, 
-        { "status": 'denied'},
-        { new: true })
-
-    res.status(200).json(deniedContract)
-})
-
 
 module.exports = {
     getContracts,
     getContract,
     createContract,
     modifyContract,
-    deleteContract,
     approveContract,
-    denyContract
+    denyContract,
+    deleteContract,
 }

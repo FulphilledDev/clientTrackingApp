@@ -48,11 +48,11 @@ function Dashboard() {
             </div>
             <div className='grid grid-rows-1'>
             {!currentContract._id ? (
-                <div className='border rounded-md h-full py-2 overflow-auto'>
+                <div className='border rounded-md h-full py-2'>
                     <NewContract />
                 </div>
             ) : (
-                <div className='border rounded-md h-full py-2 overflow-auto'>
+                <div className='border rounded-md h-full py-2'>
                     <Contract key={currentContract._id} contract={currentContract}/>
                 </div>
             )}

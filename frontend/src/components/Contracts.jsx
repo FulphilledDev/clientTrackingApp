@@ -34,7 +34,7 @@ const Contracts = ({contracts, isLoading, isSuccess, currentContract, setCurrent
           <div className='relative fixed flex justify-center items-center rounded-t-md border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white focus:outline-none gap-2'>
                     <FaFolderOpen /> Contracts
           </div>
-          <div className='border rounded-b-md px-2 py-2 overflow-y-auto'>
+          <div className='border rounded-b-md px-2 py-2 overflow-auto'>
           {contracts.map((contract) => (
             <ContractItem 
               key={contract._id} 
