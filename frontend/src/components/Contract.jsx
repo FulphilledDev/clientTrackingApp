@@ -14,8 +14,7 @@ function Contract({contract}) {
   const [ completionDate, setCompletionDate ] = useState(contract.details.completionDate)
   const [ paymentInterval, setPaymentInterval ] = useState(contract.details.paymentInterval)
   const [ paymentAmount, setPaymentAmount ] = useState(contract.details.paymentAmount)
-  const [ approveStatus, setApproveStatus ]  = useState('approve')
-  const [ denyStatus, setDenyStatus ] = useState('deny')
+  const [ contractStatus, setContractStatus ] = useState(contract.status)
 
   const dispatch = useDispatch()
 
@@ -29,8 +28,6 @@ function Contract({contract}) {
   // Approve Contract Submission
   const onApproveContract = (e) => {
     e.preventDefault()
-
-    setApproveStatus(approveStatus)
     
     dispatch(approveContract(
       {
@@ -41,7 +38,7 @@ function Contract({contract}) {
         completionDate: completionDate, 
         paymentInterval: paymentInterval, 
         paymentAmount: paymentAmount,
-        status: approveStatus
+        status: contractStatus
       }
     ))
   }
@@ -49,8 +46,6 @@ function Contract({contract}) {
   // Deny Contract Submission
   const onDenyContract = (e) => {
     e.preventDefault()
-
-    setDenyStatus(denyStatus)
 
     dispatch(denyContract(
       {
@@ -61,7 +56,7 @@ function Contract({contract}) {
         completionDate: completionDate, 
         paymentInterval: paymentInterval, 
         paymentAmount: paymentAmount,
-        status: denyStatus
+        status: contractStatus
       }
     ))
   }
@@ -96,7 +91,7 @@ function Contract({contract}) {
       </div>
     </div>
     <form 
-      onSubmit={approveStatus === 'approve' ? onApproveContract : onDenyContract}
+      onSubmit={contractStatus === 'approve' ? onApproveContract : onDenyContract}
       className="flex min-h-full items-start justify-center py-4 px-4 sm:px-6 lg:px-8">
         <div className="shadow sm:rounded-md">
           <div className="bg-white px-4 py-5 sm:p-6">
@@ -118,21 +113,21 @@ function Contract({contract}) {
                 <div>
                   {contract.status === 'pending' ?
                       <span
-                        className="mt-1 block w-full focus:border-cyan-500 sm:text-sm text-yellow-700 font-extrabold"
+                        className="mt-1 block w-full sm:text-sm text-yellow-700 font-extrabold"
                       >
                         Pending
                       </span>
                     : null}
                   {contract.status === 'approve' ?
                       <span
-                        className="mt-1 block w-full focus:border-cyan-500 sm:text-sm text-green-700 font-extrabold"
+                        className="mt-1 block w-full sm:text-sm text-green-700 font-extrabold"
                       >
                         Active
                       </span>
                     : null}
                   {contract.status === 'deny' ?
                       <span
-                        className="mt-1 block w-full focus:border-cyan-500 sm:text-sm text-red-700 font-extrabold"
+                        className="mt-1 block w-full sm:text-sm text-red-700 font-extrabold"
                       >
                         Denied
                       </span>
@@ -203,19 +198,19 @@ function Contract({contract}) {
                 <div className="block flex justify-around w-full mt-1 focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm gap-5"
                 >
                   <button
-                    name="approveStatus"
-                    id="approveStatus"
-                    value={approveStatus}
-                    onClick={() => setApproveStatus()}
+                    name="contractStatus"
+                    id="contractStatus"
+                    value={contractStatus}
+                    onClick={() => setContractStatus('approve')}
                     className="mt-1 block w-full sm:text-sm text-green-700 font-extrabold"
                   >
                     Approve
                   </button>
                   <button
-                    name="denyStatus"
-                    id="denyStatus"
-                    value={denyStatus}
-                    onClick={() => setDenyStatus()}
+                    name="contractStatus"
+                    id="contractStatus"
+                    value={contractStatus}
+                    onClick={() => setContractStatus('deny')}
                     className="mt-1 block w-full sm:text-sm text-red-700 font-extrabold"
                   >
                     Deny
@@ -341,7 +336,7 @@ function Contract({contract}) {
               <label className='block text-sm font-medium text-gray-700'>Length of Contract</label>
               <div className='flex gap-3'>
                 <div className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
-                    <Moment to={completionDate}>{startDate}</Moment>
+                    <Moment to={completionDate} filter={filterIn}>{startDate}</Moment>
                 </div>
               </div>
             </div>
