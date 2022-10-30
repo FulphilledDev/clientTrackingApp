@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { createContract, reset } from '../features/contracts/contractSlice'
+import { createContract } from '../features/contracts/contractSlice'
 import Spinner from './Spinner'
 import Moment from 'react-moment'
 

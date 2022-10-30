@@ -9,18 +9,18 @@ const Contracts = ({contracts, isLoading, isSuccess, currentContract, setCurrent
 
   const dispatch = useDispatch()
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   return(()=> {
-  //       if(isSuccess) {
-  //         dispatch(reset())
-  //       }
-  //   })
-  // }, [dispatch, isSuccess])
+    return(()=> {
+        // if(isSuccess) {
+        //   dispatch(reset())
+        // }
+    })
+  }, [dispatch, isSuccess])
 
   useEffect(()=> {
     dispatch(getContracts())
-  }, dispatch)
+  }, [dispatch])
 
   if (isLoading) {
     return <Spinner />

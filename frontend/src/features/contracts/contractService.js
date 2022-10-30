@@ -28,22 +28,10 @@ const getContracts = async (token) => {
     return response.data
 }
 
-// Get user contract
-const getContract = async (contractId, token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }
-
-    const response = await axios.get(API_URL + contractId, config)
-
-    return response.data
-}
-
 // Modify user contract
 const modifyContract = async (contractData, token) => {
     const  modifiedContract = {
+        receiver: contractData.receiver,
         service: contractData.service,
         startDate: contractData.startDate,
         completionDate: contractData.completionDate,

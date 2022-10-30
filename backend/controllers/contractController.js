@@ -20,7 +20,7 @@ const getContracts = asyncHandler(async (req, res) => {
             {"users.sender": req.user.email},
             {"users.receiver": req.user.email}
         ]
-    }).sort('desc')
+    }).sort({'updatedAt': -1})
 
     if(!contracts) {
         res.json('No contracts at this time')
@@ -125,7 +125,7 @@ const getContract = asyncHandler(async (req, res) => {
 // @desc    Modify Contract
 // @route   PUT /api/contracts/:id
 // @access  Private
-const modifyContractDetails = asyncHandler(async (req, res) => {
+const modifyContract = asyncHandler(async (req, res) => {
     // Get user using the id in the JWT
     const user = await User.findById(req.user.id)
 
@@ -143,12 +143,18 @@ const modifyContractDetails = asyncHandler(async (req, res) => {
         throw new Error('Contract not found')
     }
 
+    const authArray = [contract.users.receiver, contract.users.sender]
+
     // Verifying authorization by email or user
-    if (contract.users.receiver !== req.user.email) {
+    if (!authArray.includes(req.user.email)) {
         res.status(401)
         throw new Error('Not Authorized')
     }
+
+
     console.log(req.body)
+
+
     const updatedContract = await Contract.findByIdAndUpdate(req.params.id, 
         {"users" : {
             sender: req.user.email,
@@ -169,9 +175,12 @@ const modifyContractDetails = asyncHandler(async (req, res) => {
             {"users.sender": req.user.email},
             {"users.receiver": req.user.email}
         ]
-    }).sort('desc')
+    }).sort({'updatedAt': -1})
     
+
     console.log(updatedContract)
+
+
     res.status(200).json(contracts)
 })
 
@@ -278,7 +287,7 @@ module.exports = {
     getContracts,
     getContract,
     createContract,
-    modifyContractDetails,
+    modifyContract,
     deleteContract,
     approveContract,
     denyContract
