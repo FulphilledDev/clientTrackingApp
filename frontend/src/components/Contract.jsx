@@ -14,7 +14,8 @@ function Contract({contract}) {
   const [ completionDate, setCompletionDate ] = useState(contract.details.completionDate)
   const [ paymentInterval, setPaymentInterval ] = useState(contract.details.paymentInterval)
   const [ paymentAmount, setPaymentAmount ] = useState(contract.details.paymentAmount)
-  const [ contractStatus, setContractStatus ]  = useState(contract.status)
+  const [ approveStatus, setApproveStatus ]  = useState('approve')
+  const [ denyStatus, setDenyStatus ] = useState('deny')
 
   const dispatch = useDispatch()
 
@@ -29,6 +30,8 @@ function Contract({contract}) {
   const onApproveContract = (e) => {
     e.preventDefault()
 
+    setApproveStatus(approveStatus)
+    
     dispatch(approveContract(
       {
         id: contract._id,
@@ -38,7 +41,7 @@ function Contract({contract}) {
         completionDate: completionDate, 
         paymentInterval: paymentInterval, 
         paymentAmount: paymentAmount,
-        status: contractStatus
+        status: approveStatus
       }
     ))
   }
@@ -46,6 +49,8 @@ function Contract({contract}) {
   // Deny Contract Submission
   const onDenyContract = (e) => {
     e.preventDefault()
+
+    setDenyStatus(denyStatus)
 
     dispatch(denyContract(
       {
@@ -56,7 +61,7 @@ function Contract({contract}) {
         completionDate: completionDate, 
         paymentInterval: paymentInterval, 
         paymentAmount: paymentAmount,
-        status: contractStatus
+        status: denyStatus
       }
     ))
   }
@@ -91,7 +96,7 @@ function Contract({contract}) {
       </div>
     </div>
     <form 
-      onSubmit={onApproveContract}
+      onSubmit={approveStatus === 'approve' ? onApproveContract : onDenyContract}
       className="flex min-h-full items-start justify-center py-4 px-4 sm:px-6 lg:px-8">
         <div className="shadow sm:rounded-md">
           <div className="bg-white px-4 py-5 sm:p-6">
@@ -198,21 +203,19 @@ function Contract({contract}) {
                 <div className="block flex justify-around w-full mt-1 focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm gap-5"
                 >
                   <button
-                    type="submit"
-                    name="contractStatus"
-                    id="contractStatus"
-                    value={contractStatus.toLowerCase()}
-                    onClick={(e) => setContractStatus(e.target.value)}
+                    name="approveStatus"
+                    id="approveStatus"
+                    value={approveStatus}
+                    onClick={() => setApproveStatus()}
                     className="mt-1 block w-full sm:text-sm text-green-700 font-extrabold"
                   >
                     Approve
                   </button>
                   <button
-                    type="submit"
-                    name="contractStatus"
-                    id="contractStatus"
-                    value={contractStatus.toLowerCase()}
-                    onClick={(e) => setContractStatus(e.target.value)}
+                    name="denyStatus"
+                    id="denyStatus"
+                    value={denyStatus}
+                    onClick={() => setDenyStatus()}
                     className="mt-1 block w-full sm:text-sm text-red-700 font-extrabold"
                   >
                     Deny

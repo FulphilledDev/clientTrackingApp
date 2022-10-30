@@ -76,8 +76,13 @@ const approveContract = async (contractData, token) => {
 // Deny contract
 const denyContract = async (contractData, token) => {
     const  deniedContract = {
-        ...contractData,
-        "status": "deny"
+        receiver: contractData.receiver,
+        service: contractData.service,
+        startDate: contractData.startDate,
+        completionDate: contractData.completionDate,
+        paymentAmount: contractData.paymentAmount,
+        paymentInterval:contractData.paymentInterval,
+        status: contractData.status
     }
 
     const config = {
