@@ -158,12 +158,23 @@ const modifyContract = asyncHandler(async (req, res) => {
         throw new Error('Not Authorized')
     }
 
+    // Checking who the receiver is in order to get ALL of their information
+    // We are currently allowing 2 subsequent requests in a row, which makes us the receiver
+    // Process: on creation we are sender, on edit we are sender, then on second edit, BEFORE other user edits, we become receiver
+    const recipient = await User.findOne({ email: receiver })
+
     const updatedContract = await Contract.findByIdAndUpdate(req.params.id, 
         {"users" : {
-            "sender.email" : req.user.email,
-            "receiver.email" : receiver,
+            sender : {
+                email: req.user.email,
+                profileImage: req.user.profileImage
+            },
+            receiver : {
+                email: receiver,
+                profileImage: recipient.profileImage
+            }
         },
-            "details": {
+        "details": {
             startDate: startDate, 
             completionDate: completionDate, 
             paymentInterval: paymentInterval, 

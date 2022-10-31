@@ -9,7 +9,7 @@ function Contract({contract}) {
   const [ editMode, setEditMode ] = useState(false)
 
   // For modifying contract, this populates current information into respective fields
-  const [ receiver, setReceiver ] = useState(contract.users.sender.email)
+  const [ receiver, setReceiver ] = useState(contract.users.receiver.email)
   const [ service, setService ] = useState(contract.details.service)
   const [ startDate, setStartDate ] = useState(contract.details.startDate)
   const [ completionDate, setCompletionDate ] = useState(contract.details.completionDate)

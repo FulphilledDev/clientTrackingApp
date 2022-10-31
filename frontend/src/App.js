@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Header from './components/Header';
+import PrivateRoute from './components/PrivateRoute';
 
 
 function App() {
@@ -18,7 +19,9 @@ function App() {
                 <main className='mx-auto py-2 max-w-7xl px-4 sm:px-6 sm:py-4 lg:px-8 w-full overflow-auto'>
                 <Routes>
                   <Route path='/' element={<Home />} />
-                  <Route path='/dashboard' element={<Dashboard />} />
+                  <Route path='/dashboard' element={<PrivateRoute />} >
+                    <Route path='/dashboard' element={<Dashboard />} />
+                  </Route>
                 </Routes>
                 </main>
               </div>

@@ -26,17 +26,17 @@ function ContractItem({contract, currentContract, setCurrentContract}) {
           }
           className='hover:cursor-pointer container mx-auto p-3 mb-2 rounded-md shadow-inner shadow-cyan-700 grid grid-rows-[60px_60px)]'
           >
-          {contract.users.receiver.email === user.email ? (
+          {contract.users.receiver.email !== user.email ? (
             <div className="flex justify-center" >
               <img
               className='object-cover h-40 w-40 rounded-full' 
-              src={contract.users.sender.profileImage} alt="profileImage" />
+              src={contract.users.receiver.profileImage} alt="profileImage" />
             </div>
           ) : (
             <div className="flex justify-center" >
             <img
               className='object-cover h-40 w-40 rounded-full' 
-              src={contract.users.receiver.profileImage} alt="profileImage"/>
+              src={contract.users.sender.profileImage} alt="profileImage"/>
             </div>
           )}
           <div className={`status status-${contract.status}`}>

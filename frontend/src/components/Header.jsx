@@ -23,13 +23,11 @@ function Header() {
                 Dashboard
               </div>
             </Link>
-            <Link to='/'>
-              <div 
-                onClick={onLogout}
-                className='flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-800 hover:cursor-pointer' >
-                  <FaSignOutAlt /> Logout
-              </div>
-            </Link>
+            <button 
+              onClick={onLogout}
+              className='flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-800 hover:cursor-pointer' >
+                <FaSignOutAlt /> Logout
+            </button>
           </div>
           </>
         ): (
