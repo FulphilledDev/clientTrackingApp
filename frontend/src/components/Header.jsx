@@ -24,7 +24,9 @@ function Header() {
               </div>
             </Link>
             <Link to='/'>
-              <div className='flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-700 hover:cursor-pointer' onClick={onLogout}>
+              <div 
+                onClick={onLogout}
+                className='flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-800 hover:cursor-pointer' >
                   <FaSignOutAlt /> Logout
               </div>
             </Link>

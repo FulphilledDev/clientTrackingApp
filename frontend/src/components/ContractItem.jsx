@@ -40,27 +40,27 @@ function ContractItem({contract, currentContract, setCurrentContract}) {
             </div>
           )}
           <div className={`status status-${contract.status}`}>
-              {contract.status === 'pending' ?
-                      <span
-                        className="mt-1 block w-full sm:text-sm text-yellow-700 font-extrabold"
-                      >
-                        Pending
-                      </span>
-                    : null}
-                  {contract.status === 'approve' ?
-                      <span
-                        className="mt-1 block w-full sm:text-sm text-green-700 font-extrabold"
-                      >
-                        Active
-                      </span>
-                    : null}
-                  {contract.status === 'deny' ?
-                      <span
-                        className="mt-1 block w-full sm:text-sm text-red-700 font-extrabold"
-                      >
-                        Denied
-                      </span>
-                    : null}
+            {contract.status === 'pending' ?
+                <span
+                  className="mt-1 block w-full sm:text-sm text-yellow-700 font-extrabold"
+                >
+                  Pending
+                </span>
+              : null}
+            {contract.status === 'approve' ?
+                <span
+                  className="mt-1 block w-full sm:text-sm text-green-700 font-extrabold"
+                >
+                  Active
+                </span>
+              : null}
+            {contract.status === 'deny' ?
+                <span
+                  className="mt-1 block w-full sm:text-sm text-red-700 font-extrabold"
+                >
+                  Denied
+                </span>
+              : null}
           </div>
         </div>
       ) : (
@@ -86,26 +86,26 @@ function ContractItem({contract, currentContract, setCurrentContract}) {
         )}
         <div className={`status status-${contract.status}`}>
             {contract.status === 'pending' ?
-                      <span
-                        className="mt-1 block w-full sm:text-sm text-yellow-700 font-extrabold"
-                      >
-                        Pending
-                      </span>
-                    : null}
-                  {contract.status === 'approve' ?
-                      <span
-                        className="mt-1 block w-full sm:text-sm text-green-700 font-extrabold"
-                      >
-                        Active
-                      </span>
-                    : null}
-                  {contract.status === 'deny' ?
-                      <span
-                        className="mt-1 block w-full sm:text-sm text-red-700 font-extrabold"
-                      >
-                        Denied
-                      </span>
-                    : null}
+                <span
+                  className="mt-1 block w-full sm:text-sm text-yellow-700 font-extrabold"
+                >
+                  Pending
+                </span>
+              : null}
+            {contract.status === 'approve' ?
+                <span
+                  className="mt-1 block w-full sm:text-sm text-green-700 font-extrabold"
+                >
+                  Active
+                </span>
+              : null}
+            {contract.status === 'deny' ?
+                <span
+                  className="mt-1 block w-full sm:text-sm text-red-700 font-extrabold"
+                >
+                  Denied
+                </span>
+              : null}
         </div>
       </div>
       )
