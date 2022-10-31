@@ -12,10 +12,17 @@ function Register() {
         lastName: '',
         email: '',
         password: '',
-        password2: ''
+        password2: '',
+        profileImage: ''
     })
 
-    const { firstName, lastName, email, password, password2 } = formData
+    const { firstName, lastName, email, password, password2, profileImage } = formData
+
+    
+    // Set state for profile image select
+    const [ selectImg, setSelectImg ] = useState("")
+    // Set state for cloudinary url
+    const [ url, setUrl ] = useState("")
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -45,6 +52,29 @@ function Register() {
     const onSubmit = (e) => {
         e.preventDefault()
 
+        const imageUpload = () => {
+            const data = new FormData()
+            // Append the image we selected for profileImage
+            data.append("file", selectImg)
+            // Append the name of the upload preset from cloudinary
+            data.append("upload_preset", "contract-tracking")
+            // Append our personal cloud name in cloudinary dashboard
+            data.append("cloud_name", "dzlbau1fm")
+            // Fetching a base url for the data we want to post from the body
+            fetch("https://api.cloudinary.com/v1_1/dzlbau1fm/image/upload", {
+                method: "post",
+                body: data
+            })
+            .then(res=>res.json())
+            .then(data => {
+                // Set the state url to the url from cloudinary data
+                setUrl(data.url)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+
         if(password !== password2) {
             toast.error('Passwords do not match')
         } else {
@@ -52,7 +82,8 @@ function Register() {
                 firstName,
                 lastName,
                 email,
-                password
+                password,
+                profileImage: url
             }
 
             dispatch(register(userData))
@@ -118,6 +149,13 @@ function Register() {
                         value={password2} 
                         onChange={onChange}
                         placeholder='Confirm password'
+                        required
+                    />
+                    <input 
+                        className='relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm'
+                        type="file"
+                        onChange={(e)=> setSelectImg(e.target.files[0])}
+                        // ^^ replace setSelectImg with console.log to check if image is in array
                         required
                     />
                 </div>

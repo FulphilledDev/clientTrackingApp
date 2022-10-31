@@ -8,13 +8,23 @@ const User = require('../models/userModel')
 // @route   '/api'
 // @access  Public
 const register = asyncHandler( async (req, res) => {
-    const { firstName, lastName, email, password } = (req.body)
+    const { firstName, lastName, email, password, profileImage } = (req.body)
 
     // const lowerCaseEmail = email.toLowerCase()
     // Validation
-    if (!firstName || !lastName || !email || !password) {
+    if (
+        !firstName 
+            || !lastName 
+            || !email 
+            || !password 
+        ) {
         res.status(400)
         throw new Error('Please include all fields')
+    }
+
+    if (!profileImage) {
+        res.status(400)
+        throw new Error('Please select a profile image')
     }
 
     // Find if user already exists
@@ -34,7 +44,8 @@ const register = asyncHandler( async (req, res) => {
         firstName,
         lastName,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        profileImage
     })
 
     if(user) {
@@ -42,6 +53,7 @@ const register = asyncHandler( async (req, res) => {
             _id: user._id,
             firstName: user.firstName,
             email: user.email,
+            profileImage: user.profileImage,
             token: generateToken(user._id)
         })
     } else {
@@ -92,7 +104,8 @@ const getMe = asyncHandler(async (req, res) => {
     const user = {
         id: req.user._id,
         firstName: req.user.firstName,
-        email: req.user.email
+        email: req.user.email,
+        profileImage: req.user.profileImage
     }
     res.status(200).json(user)
 })

@@ -19,6 +19,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [ true, 'Please add a password']
     },
+    profileImage: {
+        type: String,
+        required: [ true, 'Please add a profile image']
+    },
     // For Profile Customization
     socialMediaLinks: {
         instagram: {
