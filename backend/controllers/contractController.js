@@ -15,10 +15,11 @@ const getContracts = asyncHandler(async (req, res) => {
         throw new Error('User not found')
     }
 
+    // Found all contracts for current user
     const contracts = await Contract.find({
         $or: [
-            {"users.sender": req.user.email},
-            {"users.receiver": req.user.email}
+            {"users.sender.email": req.user.email},
+            {"users.receiver.email": req.user.email}
         ]
     }).sort({'updatedAt': -1})
 
@@ -79,8 +80,14 @@ const createContract = asyncHandler(async (req, res) => {
 
     const contract = await Contract.create({
         users: {
-            sender: req.user.email,
-            receiver: receiver
+            sender: {
+                email: req.user.email,
+                profileImage: req.user.profileImage
+            },
+            receiver: {
+                email: receiver,
+                profileImage: recipient.profileImage
+            }
         },
         details: { 
             startDate: startDate, 
@@ -114,7 +121,7 @@ const getContract = asyncHandler(async (req, res) => {
         throw new Error('Contract not found')
     }
 
-    if (contract.users.sender !== req.user.email || contract.users.receiver !== req.user.email) {
+    if (contract.users.sender.email !== req.user.email || contract.users.receiver.email !== req.user.email) {
         res.status(401)
         throw new Error('Not Authorized')
     }
@@ -143,7 +150,7 @@ const modifyContract = asyncHandler(async (req, res) => {
         throw new Error('Contract not found')
     }
 
-    const authArray = [contract.users.receiver, contract.users.sender]
+    const authArray = [contract.users.receiver.email, contract.users.sender.email]
 
     // Verifying authorization by email or user
     if (!authArray.includes(req.user.email)) {
@@ -153,8 +160,8 @@ const modifyContract = asyncHandler(async (req, res) => {
 
     const updatedContract = await Contract.findByIdAndUpdate(req.params.id, 
         {"users" : {
-            sender: req.user.email,
-            receiver: receiver,
+            "sender.email" : req.user.email,
+            "receiver.email" : receiver,
         },
             "details": {
             startDate: startDate, 
@@ -168,8 +175,8 @@ const modifyContract = asyncHandler(async (req, res) => {
 
     const contracts = await Contract.find({
         $or: [
-            {"users.sender": req.user.email},
-            {"users.receiver": req.user.email}
+            {"users.sender.email": req.user.email},
+            {"users.receiver.email": req.user.email}
         ]
     }).sort({'updatedAt': -1})
     
@@ -204,7 +211,7 @@ const approveContract = asyncHandler(async (req, res) => {
 
     // Verifying authorization by email or user
     // Whoever received this contract === users.sender : 'Not Authorized to approve'
-    const authArray = [contract.users.receiver, contract.users.sender]
+    const authArray = [contract.users.receiver.email, contract.users.sender.email]
 
     // Verifying authorization by email or user
     if (!authArray.includes(req.user.email)) {
@@ -221,8 +228,8 @@ const approveContract = asyncHandler(async (req, res) => {
 
     const contracts = await Contract.find({
         $or: [
-            {"users.sender": req.user.email},
-            {"users.receiver": req.user.email}
+            {"users.sender.email": req.user.email},
+            {"users.receiver.email": req.user.email}
         ]
     }).sort({'updatedAt': -1})
 
@@ -256,7 +263,7 @@ const denyContract = asyncHandler(async (req, res) => {
 
     // Verifying authorization by email or user
     // Whoever received this contract === user.receiver : 'Not Authorized to deny'
-    const authArray = [contract.users.receiver, contract.users.sender]
+    const authArray = [contract.users.receiver.email, contract.users.sender.email]
 
     // Verifying authorization by email or user
     if (!authArray.includes(req.user.email)) {
@@ -272,8 +279,8 @@ const denyContract = asyncHandler(async (req, res) => {
 
     const contracts = await Contract.find({
         $or: [
-            {"users.sender": req.user.email},
-            {"users.receiver": req.user.email}
+            {"users.sender.email": req.user.email},
+            {"users.receiver.email": req.user.email}
         ]
     }).sort({'updatedAt': -1})
 

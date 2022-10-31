@@ -7,13 +7,24 @@ const value = date.format(now,'MM/DD/YYYY')
 const contractSchema = mongoose.Schema({
     users: {
         sender: {
-            type: String,
-            required: true,
+            email: {
+                type: String,
+                required: true,
+            },
+            profileImage: {
+                type: String
+            }
         },
         receiver: {
-            type: String,
-            required: true,
-    }},
+            email: {
+                type: String,
+                required: true,
+            },
+            profileImage: {
+                type: String
+            }
+        }
+    },
     details: {
         service: {
             type: String,

@@ -12,17 +12,14 @@ function Register() {
         lastName: '',
         email: '',
         password: '',
-        password2: '',
-        profileImage: ''
+        password2: ''
     })
 
-    const { firstName, lastName, email, password, password2, profileImage } = formData
+    const { firstName, lastName, email, password, password2 } = formData
 
     
     // Set state for profile image select
     const [ selectImg, setSelectImg ] = useState("")
-    // Set state for cloudinary url
-    const [ url, setUrl ] = useState("")
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -52,42 +49,39 @@ function Register() {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        const imageUpload = () => {
-            const data = new FormData()
-            // Append the image we selected for profileImage
-            data.append("file", selectImg)
-            // Append the name of the upload preset from cloudinary
-            data.append("upload_preset", "contract-tracking")
-            // Append our personal cloud name in cloudinary dashboard
-            data.append("cloud_name", "dzlbau1fm")
-            // Fetching a base url for the data we want to post from the body
-            fetch("https://api.cloudinary.com/v1_1/dzlbau1fm/image/upload", {
-                method: "post",
-                body: data
-            })
-            .then(res=>res.json())
-            .then(data => {
-                // Set the state url to the url from cloudinary data
-                setUrl(data.url)
-            })
-            .catch(err=>{
-                console.log(err)
-            })
-        }
+        
+        const data = new FormData()
+        // Append the image we selected for profileImage
+        data.append("file", selectImg)
+        // Append the name of the upload preset from cloudinary
+        data.append("upload_preset", "contract-tracking")
+        // Append our personal cloud name in cloudinary dashboard
+        data.append("cloud_name", "dzlbau1fm")
+        // Fetching a base url for the data we want to post from the body
+        fetch("https://api.cloudinary.com/v1_1/dzlbau1fm/image/upload", {
+            method: "post",
+            body: data
+        })
+        .then(res=>res.json())
+        .then(data => {
+            // Set the state url to the url from cloudinary data
+            if(password !== password2) {
+                toast.error('Passwords do not match')
+            } else {
+                const userData = {
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    profileImage: data.url
+                }
 
-        if(password !== password2) {
-            toast.error('Passwords do not match')
-        } else {
-            const userData = {
-                firstName,
-                lastName,
-                email,
-                password,
-                profileImage: url
+                dispatch(register(userData))
             }
-
-            dispatch(register(userData))
-        }
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     }
 
     if(isLoading) {

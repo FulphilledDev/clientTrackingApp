@@ -29,8 +29,8 @@ const Contracts = ({contracts, isLoading, isSuccess, currentContract, setCurrent
 
   return (
     <>
+    {contracts.length > 0 ? (
       <div className='text-center'>
-        
           <div className='relative fixed flex justify-center items-center rounded-t-md border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white focus:outline-none gap-2'>
                     <FaFolderOpen /> Contracts
           </div>
@@ -44,8 +44,8 @@ const Contracts = ({contracts, isLoading, isSuccess, currentContract, setCurrent
             />
           ))}
         </div>
-        
-        </div>
+      </div>
+      ): null}
     </>
   )
 }

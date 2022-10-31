@@ -30,7 +30,7 @@ function Dashboard() {
 
   return (
     <>
-        <section className='grid md:grid-cols-[1fr_3fr] grid-cols-1 md:grid-rows-1 grid-rows-[180px_1fr] px-4 py-2 h-full gap-2 border rounded-lg'>
+        <section className='flex flex-col md:grid md:grid-cols-[1fr_3fr] md:grid-rows-1 px-4 py-2 h-full gap-2 border rounded-lg'>
             <div className='flex flex-col gap-2'>
                 <button 
                     onClick={() => setCurrentContract({})} 
