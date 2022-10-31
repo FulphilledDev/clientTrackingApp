@@ -37,6 +37,11 @@ function NewContract() {
     
   }, [ isError, isSuccess, message, contract, navigate, dispatch])
 
+
+  // For Moment display in UI
+  const dateNow = Date.now()
+  const filterIn = (d) => d.slice(2)
+  
   const onSubmit = (e) => {
     e.preventDefault()
 
@@ -120,7 +125,7 @@ function NewContract() {
             <label className='block'>Length of Contract</label>
             <div className='flex gap-3'>
               <div className="relative appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm">
-                  <Moment to={completionDate}>{startDate}</Moment>
+                  <Moment to={completionDate} filter={filterIn}>{startDate}</Moment>
               </div>
             </div>
           </div>
