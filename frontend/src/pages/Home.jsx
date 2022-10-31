@@ -7,14 +7,22 @@ function Home() {
     const [ toggleRegister, setToggleRegister ] = useState('closed')
     const [ toggleLogin, setToggleLogin] = useState('open')
 
-    const alternateToggle = () => {
-        if(toggleRegister === 'closed') {
+    const onToggleLogin = () => {
+        if(toggleLogin === 'closed' && toggleRegister === 'open') {
+            setToggleLogin('open')
+            setToggleRegister('closed')
+        } else {
+            setToggleLogin('closed')
+        } 
+    }
+
+    const onToggleRegister = () => {
+        if(toggleRegister === 'closed' && toggleLogin === 'open') {
             setToggleRegister('open')
             setToggleLogin('closed')
-        } else if (toggleLogin === 'closed'){
+        } else {
             setToggleRegister('closed')
-            setToggleLogin('open')
-        } 
+        }
     }
     
   return (
@@ -24,10 +32,10 @@ function Home() {
             <p className='mt-2 text-center text-md text-gray-600'>We look forward to working with you!</p>
         </section>
         <section className='flex max-h-auto items-center justify-center py-4 px-4 sm:px-6 lg:px-8 gap-5'>
-            <button onClick={alternateToggle} className='inline-flex gap-1 items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-700 hover:cursor-pointer'>
+            <button onClick={onToggleLogin} className='inline-flex gap-1 items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-700 hover:cursor-pointer'>
                 <FaSignInAlt /> Sign-In
             </button>
-            <button onClick={alternateToggle} className='inline-flex gap-1 items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-700 hover:cursor-pointer'>
+            <button onClick={onToggleRegister} className='inline-flex gap-1 items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-cyan-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-700 hover:cursor-pointer'>
                 <FaPenAlt /> Register
             </button>
         </section>
