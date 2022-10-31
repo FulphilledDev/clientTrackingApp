@@ -27,9 +27,9 @@ function ContractItem({contract, currentContract, setCurrentContract}) {
           className='hover:cursor-pointer container mx-auto p-3 mb-2 rounded-md shadow-inner shadow-cyan-700 grid grid-rows-[60px_60px)]'
           >
           {contract.users.receiver.email === user.email ? (
-            <div>{contract.users.sender.email}</div>
+            <img src={contract.users.sender.profileImage} alt="profileImage" />
           ) : (
-            <div>{contract.users.receiver.email}</div>
+            <img src={contract.users.receiver.profileImage} alt="profileImage"/>
           )}
           <div className={`status status-${contract.status}`}>
               {contract.status}

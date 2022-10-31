@@ -9,7 +9,7 @@ function Contract({contract}) {
   const [ editMode, setEditMode ] = useState(false)
 
   // For modifying contract, this populates current information into respective fields
-  const [ receiver, setReceiver ] = useState(contract.users.sender)
+  const [ receiver, setReceiver ] = useState(contract.users.sender.email)
   const [ service, setService ] = useState(contract.details.service)
   const [ startDate, setStartDate ] = useState(contract.details.startDate)
   const [ completionDate, setCompletionDate ] = useState(contract.details.completionDate)
@@ -90,10 +90,10 @@ function Contract({contract}) {
                 <label className="block text-sm font-medium text-gray-700">
                   Email
                 </label>
-                <span className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">{contract.users.receiver === user.email ? (
-                      <>{contract.users.sender}</>
+                <span className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">{contract.users.receiver.email === user.email ? (
+                      <>{contract.users.sender.email}</>
                     ) : (
-                      <>{contract.users.receiver}</>
+                      <>{contract.users.receiver.email}</>
                     )} </span>
               </div>
               <div className="col-span-3 text-center">
