@@ -190,9 +190,6 @@ const modifyContract = asyncHandler(async (req, res) => {
             {"users.receiver.email": req.user.email}
         ]
     }).sort({'updatedAt': -1})
-    
-
-    console.log(updatedContract)
 
 
     res.status(200).json(contracts)
@@ -243,8 +240,6 @@ const approveContract = asyncHandler(async (req, res) => {
             {"users.receiver.email": req.user.email}
         ]
     }).sort({'updatedAt': -1})
-
-    console.log(approvedContract)
 
 
     res.status(200).json(contracts)
